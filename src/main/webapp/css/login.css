@@ -1,0 +1,14 @@
+.login-box .login-text {
+    width: 203px;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 45px;
+    vertical-align: middle;
+    border: 1px solid #dedede;
+}
+
+.title { padding:10px 20px; background-color:#f1f1f1; border-bottom:1px solid #ddd; font-size:14px; color:#333; }
+.login p { margin-bottom:10px; font-size:14px;}
+.login input.text { width:200px; padding:5px; border:1px solid #ddd; vertical-align:middle; }
+.login input.btn { width:70px; padding:6px; border:1px solid #ddd; margin-left:10px; cursor:pointer; }
+.login a { margin-left:10px; }

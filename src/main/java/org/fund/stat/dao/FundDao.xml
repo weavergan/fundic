@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.fund.stat.dao.FundDao">
+	
+	<resultMap type="org.fund.stat.entity.Materiel" id="UserMap">
+		<result property="userId" column="user_id" jdbcType="INTEGER" />
+		<result property="code" column="code" jdbcType="VARCHAR" />
+		<result property="startDate" column="start_date" jdbcType="DATE" />
+		<result property="endDate" column="end_date" jdbcType="DATE" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="purchaseFee" column="purchasefee" jdbcType="INTEGER" />
+		<result property="sellFee" column="sellfee" jdbcType="INTEGER" />
+		<result property="baseMultiple" column="basemultiple" jdbcType="FLOAT" />
+		<result property="startInvest" column="startinvest" jdbcType="INTEGER" />
+		<result property="moreMultiple" column="moremultiple" jdbcType="FLOAT" />
+		<result property="firstInvest" column="firstinvest" jdbcType="FLOAT" />
+		<result property="isStopProfit" column="isstopprofit" jdbcType="INTEGER" />
+		<result property="stopProfitPot" column="stopprofitpot" jdbcType="INTEGER" />
+		<result property="isAutoSell" column="isautosell" jdbcType="INTEGER" />
+		<result property="startSell" column="startsell" jdbcType="INTEGER" />
+		<result property="minSellCount" column="minsellcount" jdbcType="INTEGER" />
+		<result property="isZS" column="iszs" jdbcType="INTEGER" />
+		<result property="isFenhongInvest" column="isfenhonginvest" jdbcType="INTEGER" />
+		<result property="isIncrease" column="isincrease" jdbcType="INTEGER" />
+		<result property="isSetMinRate" column="issetminrate" jdbcType="INTEGER" />
+		<result property="minHoldCount" column="minholdcount" jdbcType="INTEGER" />
+	</resultMap>
+    
+	<select id="getMaterielsById" parameterType="String" resultMap="UserMap">
+    	SELECT * FROM t_materiel 
+    	WHERE user_id = #{userId}
+    </select>
+    
+    <select id="getMaterielByCode" resultMap="UserMap">
+    	SELECT * FROM t_materiel 
+    	WHERE user_id = #{userId} AND code = #{code}
+    </select>
+    
+    <insert id="addMaterielsByCode" parameterType="org.fund.stat.entity.Materiel">
+    	INSERT INTO `t_materiel`(user_id, `code`,start_date,end_date,create_time,update_time,purchaseFee,sellfee,basemultiple,startinvest,moremultiple,firstinvest,isstopprofit,stopprofitpot,isautosell,startsell, minsellcount,minHoldCount, iszs, isfenhonginvest, isIncrease, isSetMinRate)
+		VALUES(#{userId}, #{code}, #{startDate}, #{endDate}, now(), now(), #{purchaseFee}, #{sellFee}, #{baseMultiple}, #{startInvest}, #{moreMultiple}, #{firstInvest}, #{isStopProfit}, #{stopProfitPot}, #{isAutoSell}, #{startSell}, #{minSellCount}, #{minHoldCount}, #{isZS}, #{isFenhongInvest}, #{isIncrease}, #{isSetMinRate})
+    </insert>
+    
+    <update id="updateMaterielsByCode">
+	    UPDATE `t_materiel` SET start_date=#{startDate},end_date=#{endDate},update_time=now(), 
+			purchaseFee=#{purchaseFee},sellfee=#{sellFee},basemultiple=#{baseMultiple},startinvest=#{startInvest},moremultiple=#{moreMultiple}, 
+			firstinvest=#{firstInvest},isstopprofit=#{isStopProfit},stopprofitpot=#{stopProfitPot},isautosell=#{isAutoSell},startsell=#{startSell}, minsellcount=#{minSellCount}, minHoldCount=#{minHoldCount}, 
+			iszs=#{isZS}, isfenhonginvest=#{isFenhongInvest}, isIncrease=#{isIncrease}, isSetMinRate=#{isSetMinRate} 
+		WHERE user_id=#{userId} AND `code`=#{code}
+    </update>
+    
+    <delete id="deleteFundData">
+    	DELETE FROM `t_materiel` 
+    	 WHERE user_id=#{userId} AND `code`=#{code}
+    </delete>
+    
+</mapper>

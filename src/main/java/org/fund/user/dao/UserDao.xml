@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.fund.user.dao.UserDao">
+	
+	<resultMap type="org.fund.user.entity.User" id="UserMap">
+		<id property="userId" column="id" jdbcType="INTEGER" />
+		<result property="username" column="username" jdbcType="VARCHAR" />
+		<result property="password" column="password" jdbcType="VARCHAR" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="auth" column="auth" jdbcType="INTEGER" />
+		<result property="expiredDate" column="expired_date" jdbcType="INTEGER" />
+	</resultMap>
+    
+	<select id="getByUserName" parameterType="String" resultMap="UserMap">
+    	SELECT * FROM t_user 
+    	WHERE username = #{username}
+    </select>
+    
+    <insert id="createUser" parameterType="org.fund.user.entity.User" useGeneratedKeys="true" keyProperty="id">
+    	INSERT INTO t_user (username, password, create_time, update_time, auth, expired_date) 
+    	VALUES(#{username}, #{password}, now(), now(), #{auth}, 0)
+    </insert>
+    
+    <select id="getAllUsers" resultMap="UserMap">
+    	SELECT * FROM t_user 
+    </select>
+    
+    <select id="getMemUsers" resultMap="UserMap">
+    	SELECT * FROM t_user 
+    	WHERE auth = 2
+    </select>
+    
+    <update id="upgradeUser" parameterType="Integer">
+    	UPDATE `t_user` SET auth = #{auth}, expired_date = #{expiredDate} WHERE id = #{userId}
+    </update>
+    
+    <select id="findExpiredMemUsers" parameterType="Integer" resultMap="UserMap">
+    	SELECT * FROM t_user 
+    	WHERE auth = 2 and expired_date <![CDATA[ <= ]]> #{curDate}
+    </select>
+    
+    <update id="updateMemToNormal" parameterType="Integer">
+    	UPDATE `t_user` SET auth = 1 WHERE id in 
+    	<foreach item="item" index="index" collection="userIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+    
+    <update id="resetPassword" parameterType="org.fund.user.entity.User">
+    	UPDATE `t_user` SET password = #{password}, update_time = now() WHERE username = #{username}
+    </update>
+</mapper>
