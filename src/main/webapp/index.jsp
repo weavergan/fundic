@@ -16,8 +16,8 @@
 <link href="assets/css/main.css" rel="stylesheet">
 <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 <link href="assets/css/animate-custom.css" rel="stylesheet">
-<!-- <link href='http://fonts.useso.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.useso.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'> -->
+<!-- <link href='http://fonts.useso.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'> -->
+<!-- <link href='http://fonts.useso.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'> -->
 <link rel="stylesheet" type="text/css" href="css/login.css">
 
 <script type="text/javascript" src="js/easyui/jquery.min.js"></script>
@@ -105,7 +105,7 @@
 
 <div id="navbar-main"> 
   <!-- Fixed navbar -->
-  <div class="navbar navbar-default navbar-fixed-top">
+  <div style="font-family:微软雅黑" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -115,12 +115,16 @@
         </script>
 	  <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#home" class="smoothScroll">主页</a></li>
-          <li> <a href="#about" class="smoothScroll"> 关于</a></li>
-          <li> <a href="#services" class="smoothScroll"> 服务</a></li>
-          <li> <a href="#portfolio" class="smoothScroll"> 经典案例</a></li>
-          <li> <a href="#team" class="smoothScroll"> 开发团队</a></li>
-          <li> <a href="#contact" class="smoothScroll"> 联系我们</a></li>
+          <li> <a href="#headerwrap" class="smoothScroll">主页</a></li>
+          <li> <a href="#about" class="smoothScroll">介绍</a></li>
+          <!--<li> <a href="#services" class="smoothScroll">服务</a></li>-->
+          <li> <a href="#portfolio" class="smoothScroll">示例</a></li>
+          <!--<li> <a href="#team" class="smoothScroll">团队</a></li>-->
+          <li> <a href="#contact" class="smoothScroll">联系方式</a></li>
+          <li> <a href="https://shop63419396.taobao.com/" target="view_window">淘宝店铺</a></li>
+          <li> <a href="http://wpa.qq.com/msgrd?v=3&uin=640261692&site=qq&menu=yes" target="view_window">在线咨询</a></li>
+          <!--<li><li> <a href="http://123.56.181.105:8888/" target="view_window">博客</a></li>-->
+          <li> <a href="help.html" target="view_window">帮助</a></li>
         </ul>
       </div>
       <!--/.nav-collapse --> 
@@ -130,24 +134,23 @@
 
 <!-- ==== HEADERWRAP ==== -->
 <div id="headerwrap" name="home">
-  <header class="clearfix">
-    <h1>小耿教你买基金</h1>
-    <p>增投是以定投为原型、买跌不买涨、越跌越买的一种投资策略，<br>
-      其核心思想是缩小跌幅、放大涨幅，以抵抗基金净值波动带来的风险</p>
-    <a href="/file/fundinc.exe" target="view_window" class="smoothScroll btn btn-lg">下载软件</a> </header>
+  <header style="font-family:微软雅黑" class="clearfix">
+    <h1>什么是增投</h1>
+    <p><br>增投是一种以定投为基础、将定投的优势发挥到极致的开放式基金投资策略</br></br>支持：XP / WIN7 / WIN8 / WIN10</p>
+    <a href="/file/setup.exe" target="view_window" class="smoothScroll btn btn-lg">下载软件</a> </header>
 </div>
 <!-- /headerwrap --> 
 
 <!-- ==== ABOUT ==== -->
 <div id="about" name="about">
-  <div class="container">
+  <div style="font-family:微软雅黑" class="container">
     <div class="row white">
-      <div class="col-md-6"> <img class="img-responsive" src="assets/img/about/about1.jpg" align=""> </div>
+      <div class="col-md-6"> <img class="img-responsive" src="assets/img/about/profits.jpeg" align=""> </div>
       <div class="col-md-6">
-        <h3>关于我们</h3>
-        <p>增投的灵感来源于2015年6月份，并于8月份量化，9月份开始实践，在10-12月份的实践中逐步完善。最初投资规则只有一句话，然后以Excel为计算工具计算投入金额；后来开发了软件版，并在计算更为简单的前提下将方法大大完善； 再后来由于受到只能在电脑上运行、携带不方便的限制，逐步开发出了网页版和手机版，这样一来，无论你身处何地，只要能够上网，便随时能够享受到增投带来的便利。</p>
-        <h3>为什么选择增投？</h3>
-        <p>传统的定投风险较小，但是投资周期长；而投资周期较短的低买高卖手段对投资者的判断能力、心理素质要求较高，风险较大。增投同时具备投资周期短、风险较小的优点，收益率适中，长期保持稳定的收益，则在同样的时间内其收益可以超过定投，比较适合每天能在固定时间14:50-15:00抽出时间进行操作的上班一族。</p>
+        <h3>增投跟定投有什么区别</h3>
+        <p>定投投资周期长，最短一周一投；增投只要市场走势符合条件每天都可以投。定投的投资金额固定，增投的投资金额不固定，净值越低，投入越大。定投需要数年的坚持才能盈利，增投只需要数月就可以看到回报。</p>
+        <h3>投资小贴士</h3>
+        <p>用增投法买基金相当于买了一个不固定的股基-货基组合，将股基的风险降到债基的水平，却依然享受股基的收益，比较适合每天能在固定时间14:50-15:00抽出时间进行操作的上班一族。<strong>我们只提供网络服务，不会以任何形式向您集资，您的投资标的为各大基金公司旗下的开放式基金，且全程由您自己操作，我们不会索要您的任何账户信息。</strong></p>
       </div>
     </div>
     <!-- row --> 
@@ -157,30 +160,29 @@
 
 <!-- ==== SERVICES ==== -->
 <div id="services" name="services">
-  <div class="container">
+  <div style="font-family:微软雅黑" class="container">
     <div class="row">
       <h2 class="centered">我们的服务</h2>
       <hr>
       <div class="col-lg-8 col-lg-offset-2">
-        <p class="large">所有软件的开发都是由开发者利用业余时间完成，请大家耐心等待！</p>
+        <p class="large">网页版跨平台支持Android、iOS、Windows、Mac、Linux等系统</p>
       </div>
       <div class="col-lg-3 callout"> <i class="fa fa-desktop fa-3x"></i>
-        <h3>windows软件</h3>
-        <p>不断升级中...</p>
-      </div>
-      <div class="col-lg-3 callout"> <i class="fa fa-gears fa-3x"></i>
-        <h3>安卓app</h3>
-        <p>开发中...</p>
+        <h3>电脑版</h3>
+        <p>一个Windows安装程序，可以更方便地打开与计算，使用账号登录</p>
       </div>
       <div class="col-lg-3 callout"> <i class="fa fa-dot-circle-o fa-3x"></i>
-        <h3>苹果app</h3>
-        <p>开发中...</p>
-      </div>
-      <div class="col-lg-3 callout"> <i class="fa fa-shopping-cart  fa-3x"></i>
         <h3>网页版</h3>
-        <p>不断升级中...</p>
+        <p>可以使用手机号免费注册一个账号，但部分功能可能会受到限制</p>
       </div>
-                
+      <div class="col-lg-3 callout"> <i class="fa fa-gears fa-3x"></i>
+        <h3>我们的博客</h3>
+        <p>大家可以在这里积极讨论增投法使用技巧及心得体会</p>
+      </div>
+      <div class="col-lg-3 callout"> <i class="fa fa-shopping-cart fa-3x"></i>
+        <h3>淘宝店铺</h3>
+        <p>拍之前请与卖家联系，确认卖家在线再付款</p>
+      </div>
     </div>
     <!-- row --> 
   </div>
@@ -189,12 +191,12 @@
 
 <!-- ==== PORTFOLIO ==== -->
 <div id="portfolio" name="portfolio">
-  <div class="container">
+  <div style="font-family:微软雅黑" class="container">
     <div class="row">
-      <h2 class="centered">经典案例</h2>
+      <h2 class="centered">经典示例</h2>
       <hr>
       <div class="col-lg-8 col-lg-offset-2 centered">
-        <p class="large">以下是最经典的操作案例，在净值下降的第一天开始投入，到反弹后的最高点结束，反弹后无论是否超过之前的最高净值，该方法都能获得不少的盈利。</p>
+        <p class="large">以下是非常经典的操作示例，在净值下降的第一天开始投入，到反弹后的最高点结束，反弹后无论是否超过之前的最高净值，该方法都能获得不少的盈利。</p>
       </div>
     </div>
     <!-- /row -->
@@ -206,11 +208,11 @@
           <div class="grid mask">
             <figure> <img class="img-responsive" src="assets/img/portfolio/folio01.png" alt="">
               <figcaption>
-                <h5>2015.6.15-7.24鹏华国防</h5>
-                <a data-toggle="modal" href="#myModal1" class="btn btn-default">详细操作</a> </figcaption>
+                <h5>鹏华国防(160630)</h5></figcaption>
               <!-- /figcaption --> 
             </figure>
             <!-- /figure --> 
+            <p class="centered"><a data-toggle="modal" href="#myModal1" class="btn btn-default">详细操作</a></p>
           </div>
           <!-- /grid-mask --> 
         </div>
@@ -223,12 +225,12 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">鹏华国防160630</h4>
+                <h4 class="modal-title">鹏华国防(2015.6.15-2015.7.24)</h4>
               </div>
               <div class="modal-body">
                 <p><img class="img-responsive" src="assets/img/portfolio/folio01-preview.png" alt=""></p>
                 <p>操作详情：前期买入，越跌越买；后期卖出，越涨越卖。</p>
-                <p><b><a href="http://pan.baidu.com/s/1Hui1g" target="view_window">下载软件</a></b></p>
+                <p><b><a href="assets/img/portfolio/folio01-preview.png" target="view_window">查看大图</a></b></p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -245,12 +247,12 @@
           <div class="grid mask">
             <figure> <img class="img-responsive" src="assets/img/portfolio/folio02.png" alt="">
               <figcaption>
-                <h5>2015.8.18-12.25国富价值</h5>
-                <a data-toggle="modal" href="#myModal2" class="btn btn-default">详细操作</a> </figcaption>
+                <h5>国富价值(450004)</h5></figcaption>
               <!-- /figcaption --> 
             </figure>
-            <!-- /figure --> 
-          </div>
+            <!-- /figure -->
+            <p class="centered"><a data-toggle="modal" href="#myModal2" class="btn btn-default">详细操作</a></p>
+           </div>
           <!-- /grid-mask --> 
         </div>
         
@@ -259,12 +261,12 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">国富价值450004</h4>
+                <h4 class="modal-title">国富价值(2015.8.18-2015.12.25)</h4>
               </div>
               <div class="modal-body">
                 <p><img class="img-responsive" src="assets/img/portfolio/folio02-preview.png" alt=""></p>
                 <p>操作详情：前期买入，越跌越买；后期卖出，越涨越卖。</p>
-                <p><b><a href="http://pan.baidu.com/s/1Hui1g" target="view_window">下载软件</a></b></p>
+                <p><b><a href="assets/img/portfolio/folio02-preview.png" target="view_window">查看大图</a></b></p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -281,11 +283,11 @@
           <div class="grid mask">
             <figure> <img class="img-responsive" src="assets/img/portfolio/folio03.png" alt="">
               <figcaption>
-                <h5>2015.11.12-12.23富国券商</h5>
-                <a data-toggle="modal" href="#myModal3" class="btn btn-default">详细操作</a> </figcaption>
+                <h5>富国券商(161027)</h5></figcaption>
               <!-- /figcaption --> 
             </figure>
             <!-- /figure --> 
+            <p class="centered"><a data-toggle="modal" href="#myModal3" class="btn btn-default">详细操作</a></p>
           </div>
           <!-- /grid-mask --> 
         </div>
@@ -297,12 +299,12 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">富国券商161027</h4>
+                <h4 class="modal-title">富国券商(2015.11.12-2015.12.23)</h4>
               </div>
               <div class="modal-body">
                 <p><img class="img-responsive" src="assets/img/portfolio/folio03-preview.png" alt=""></p>
                 <p>操作详情：前期买入，越跌越买；后期卖出，越涨越卖。</p>
-                <p><b><a href="http://pan.baidu.com/s/1Hui1g" target="view_window">下载软件</a></b></p>
+                <p><b><a href="assets/img/portfolio/folio03-preview.png" target="view_window">查看大图</a></b></p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -320,11 +322,11 @@
           <div class="grid mask">
             <figure> <img class="img-responsive" src="assets/img/portfolio/folio04.png" alt="">
               <figcaption>
-                <h5>2015.12.23-2016.2.22富国发展</h5>
-                <a data-toggle="modal" href="#myModal4" class="btn btn-default">详细操作</a> </figcaption>
+                <h5>富国发展(000471)</h5></figcaption>
               <!-- /figcaption --> 
             </figure>
             <!-- /figure --> 
+            <p class="centered"><a data-toggle="modal" href="#myModal4" class="btn btn-default">详细操作</a></p>
           </div>
           <!-- /grid-mask --> 
         </div>
@@ -334,12 +336,12 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">富国发展000471</h4>
+                <h4 class="modal-title">富国发展(2015.12.23-2016.2.22)</h4>
               </div>
               <div class="modal-body">
                 <p><img class="img-responsive" src="assets/img/portfolio/folio04-preview.png" alt=""></p>
                 <p>操作详情：前期买入，越跌越买；后期卖出，越涨越卖。</p>
-                <p><b><a href="http://pan.baidu.com/s/1Hui1g" target="view_window">下载软件</a></b></p>
+                <p><b><a href="assets/img/portfolio/folio04-preview.png" target="view_window">查看大图</a></b></p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -356,11 +358,11 @@
           <div class="grid mask">
             <figure> <img class="img-responsive" src="assets/img/portfolio/folio05.png" alt="">
               <figcaption>
-                <h5>2016.2.23-4.14中邮战略</h5>
-                <a data-toggle="modal" href="#myModal5" class="btn btn-default">详细操作</a> </figcaption>
+                <h5>中邮战略(590008)</h5></figcaption>
               <!-- /figcaption --> 
             </figure>
             <!-- /figure --> 
+            <p class="centered"><a data-toggle="modal" href="#myModal5" class="btn btn-default">详细操作</a></p>
           </div>
           <!-- /grid-mask --> 
         </div>
@@ -370,12 +372,12 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">中邮战略590008</h4>
+                <h4 class="modal-title">中邮战略(2016.2.23-4.14)</h4>
               </div>
               <div class="modal-body">
                 <p><img class="img-responsive" src="assets/img/portfolio/folio05-preview.png" alt=""></p>
                 <p>操作详情：前期买入，越跌越买；后期卖出，越涨越卖。</p>
-                <p><b><a href="http://pan.baidu.com/s/1Hui1g" target="view_window">下载软件</a></b></p>
+                <p><b><a href="assets/img/portfolio/folio05-preview.png" target="view_window">查看大图</a></b></p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -387,6 +389,45 @@
         </div>
         <!-- /.modal --> 
 
+        <!-- PORTFOLIO IMAGE 6 -->
+        <div class="col-md-4">
+          <div class="grid mask">
+            <figure> <img class="img-responsive" src="assets/img/portfolio/folio06.png" alt="">
+              <figcaption>
+                <h5>金鹰资源(210001)</h5></figcaption>
+              <!-- /figcaption --> 
+            </figure>
+            <!-- /figure --> 
+            <p class="centered"><a data-toggle="modal" href="#myModal6" class="btn btn-default">详细操作</a></p>
+          </div>
+          <!-- /grid-mask --> 
+        </div>
+        <!-- /col --> 
+      </div>
+      <!-- /row --> 
+
+        <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">金鹰资源(2016.8.18-2016.11.15)</h4>
+              </div>
+              <div class="modal-body">
+                <p><img class="img-responsive" src="assets/img/portfolio/folio06-preview.png" alt=""></p>
+                <p>操作详情：前期买入，越跌越买；后期卖出，越涨越卖。</p>
+                <p><b><a href="assets/img/portfolio/folio06-preview.png" target="view_window">查看大图</a></b></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+            <!-- /.modal-content --> 
+          </div>
+          <!-- /.modal-dialog --> 
+        </div>
+        <!-- /.modal --> 
+        
         <!-- /col --> 
       </div>
       <!-- /row --> 
@@ -398,32 +439,32 @@
 
 <!-- ==== TEAM MEMBERS ==== -->
 <div id="team" name="team">
-  <div class="container">
+  <div style="font-family:微软雅黑" class="container">
     <div class="row centered">
       <h2 class="centered">我们的开发团队</h2>
       <hr>
       <div class="col-lg-3 centered"> <img class="img img-circle" src="assets/img/team/team01.jpg" height="120px" width="120px" alt="">
         <h4>常惭愧</h4>
-        <p>增投法的发明者<br>
-		Windows软件的开发者</p>
+        <p>CEO&创建者<br>
+		增投算法的发明者，增投软件的作者，网站的管理者以及客服</p>
       </div>
       <div class="col-lg-3 centered"> <img class="img img-circle" src="assets/img/team/team02.jpg" height="120px" width="120px" alt="">
         <h4>Weaver Gan</h4>
         <p>网络工程师<br>
-        网页版的开发者</p>
+        网站的开发者及维护者</p>
       </div>
       <div class="col-lg-3 centered"> <img class="img img-circle" src="assets/img/team/team03.jpg" height="120px" width="120px" alt="">
-        <h4>×××</h4>
+        <h4>未招募</h4>
         <p>软件工程师<br>
-		安卓客户端的开发者</p>
+		负责安卓客户端的开发及长期的维护</p>
       </div>
       <div class="col-lg-3 centered"> <img class="img img-circle" src="assets/img/team/team04.jpg" height="120px" width="120px" alt="">
-        <h4>×××</h4>
+        <h4>未招募</h4>
         <p>软件工程师<br>
-		苹果客户端的开发者</p>
+		负责苹果客户端的开发及长期的维护</p>
       </div>
       <div class="col-lg-8 col-lg-offset-2 centered">
-        <p class="large">我们致力于创造一个轻松和谐的投资氛围，将大部分工作交给CPU来完成，使您的情绪不再紧张，把更多的时间用在努力工作和陪伴家人上。</p>
+        <p class="large">我们的目的是将您从无常的股市中解放出来，用您宝贵的时间和精力做更多有益于社会和人民的事。</p>
       </div>
     </div>
   </div>
@@ -433,9 +474,9 @@
 
 <!-- ==== CONTACT ==== -->
 <div id="contact" name="contact">
-  <div class="container">
+  <div style="font-family:微软雅黑" class="container">
     <div class="row">
-      <h2 class="centered">联系我们</h2>
+      <h2 class="centered">联系方式</h2>
       <hr>
       <div class="col-md-4 centered"> <i class="fa fa-map-marker fa-2x"></i>
         <p>北京市朝阳区北苑路32号</p>
@@ -444,13 +485,14 @@
         <p>einstein_cool@126.com</p>
       </div>
       <div class="col-md-4"> <i class="fa fa-phone fa-2x"></i>
-        <p>+86 186 12388 9910</p>
+        <p>+86 186 1388 9910</p>
       </div>
     </div>
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 centered">
-        <p>如果您有好的建议，或对我们的服务有意见，请给我们发送电子邮件。或者加入讨论群：114242968。</p>
-        <a href="https://shop63419396.taobao.com/" target="view_window" class="smoothScroll btn btn-lg">升级VIP会员</a></header>
+        <p>如果您有好的建议，或对我们的服务有意见，请给我们发送电子邮件；或者扫描下方的二维码，关注后反馈；或者<a target="_blank" href="https://jq.qq.com/?_wv=1027&k=41hYDKD "><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="基金交流" title="基金交流"></a>114242968反馈。</p>
+        <p align="center"><img class="img-responsive centered" src="assets/img/about/8cm.jpg" alt=""></p>
+        <a href="https://shop63419396.taobao.com/" target="view_window" class="smoothScroll btn btn-lg">升级VIP会员</a>
         <!-- form --> 
       </div>
     </div>
@@ -461,7 +503,7 @@
 <!-- container -->
 
 <div id="footerwrap">
-  <div class="container">
+  <div style="font-family:微软雅黑" class="container">
     <div class="row">
       <div class="col-md-8"> <span class="copyright">Copyright &copy; 2015-2016 fundzt.com All Rights Reserved. 京ICP备16005910</span> </div>
       <div class="col-md-4">

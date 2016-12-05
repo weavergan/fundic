@@ -14,7 +14,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:appContext.xml</param-value>
+		<param-value>classpath:base/appContext.xml</param-value>
 	</context-param>
 
 	<servlet>
@@ -23,7 +23,7 @@
 		<load-on-startup>1</load-on-startup>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:appContext-mvc.xml</param-value>
+			<param-value>classpath:base/appContext-mvc.xml</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
@@ -37,7 +37,7 @@
 	 	<init-param>
 			<param-name>excludePath</param-name>
 			<param-value>
-				/favicon.ico;/jsp/login.jsp;/jsp/error.jsp;/user/.*\.do;/js/.*;/css/.*;/index.jsp;/assets/.*;/file/.*;/mobile/.*
+				/favicon.ico;/jsp/login.jsp;/jsp/error.jsp;/user/.*\.do;/js/.*;/css/.*;/index.jsp;/mobile/.*;/assets/.*;/file/.*;/images/.*;/help.html
 			</param-value>
 		</init-param>
 	 </filter>

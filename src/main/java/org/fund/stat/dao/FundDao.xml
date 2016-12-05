@@ -27,8 +27,10 @@
 		<result property="isIncrease" column="isincrease" jdbcType="INTEGER" />
 		<result property="isSetMinRate" column="issetminrate" jdbcType="INTEGER" />
 		<result property="minHoldCount" column="minholdcount" jdbcType="INTEGER" />
+		<result property="totalInvest" column="totalinvest" jdbcType="INTEGER" />
+		<result property="riskRate" column="riskrate" jdbcType="INTEGER" />
 	</resultMap>
-    
+
 	<select id="getMaterielsById" parameterType="String" resultMap="UserMap">
     	SELECT * FROM t_materiel 
     	WHERE user_id = #{userId}
@@ -40,14 +42,15 @@
     </select>
     
     <insert id="addMaterielsByCode" parameterType="org.fund.stat.entity.Materiel">
-    	INSERT INTO `t_materiel`(user_id, `code`,start_date,end_date,create_time,update_time,purchaseFee,sellfee,basemultiple,startinvest,moremultiple,firstinvest,isstopprofit,stopprofitpot,isautosell,startsell, minsellcount,minHoldCount, iszs, isfenhonginvest, isIncrease, isSetMinRate)
-		VALUES(#{userId}, #{code}, #{startDate}, #{endDate}, now(), now(), #{purchaseFee}, #{sellFee}, #{baseMultiple}, #{startInvest}, #{moreMultiple}, #{firstInvest}, #{isStopProfit}, #{stopProfitPot}, #{isAutoSell}, #{startSell}, #{minSellCount}, #{minHoldCount}, #{isZS}, #{isFenhongInvest}, #{isIncrease}, #{isSetMinRate})
+    	INSERT INTO `t_materiel`(user_id, `code`,start_date,end_date,create_time,update_time,purchaseFee,sellfee,basemultiple,startinvest,moremultiple,firstinvest,isstopprofit,stopprofitpot,isautosell,startsell, minsellcount,minHoldCount,totalinvest,riskrate, iszs, isfenhonginvest, isIncrease, isSetMinRate)
+		VALUES(#{userId}, #{code}, #{startDate}, #{endDate}, now(), now(), #{purchaseFee}, #{sellFee}, #{baseMultiple}, #{startInvest}, #{moreMultiple}, 0, #{isStopProfit}, #{stopProfitPot}, #{isAutoSell}, #{startSell}, #{minSellCount}, #{minHoldCount},#{totalInvest},#{riskRate}, #{isZS}, #{isFenhongInvest}, #{isIncrease}, #{isSetMinRate})
     </insert>
     
     <update id="updateMaterielsByCode">
 	    UPDATE `t_materiel` SET start_date=#{startDate},end_date=#{endDate},update_time=now(), 
 			purchaseFee=#{purchaseFee},sellfee=#{sellFee},basemultiple=#{baseMultiple},startinvest=#{startInvest},moremultiple=#{moreMultiple}, 
-			firstinvest=#{firstInvest},isstopprofit=#{isStopProfit},stopprofitpot=#{stopProfitPot},isautosell=#{isAutoSell},startsell=#{startSell}, minsellcount=#{minSellCount}, minHoldCount=#{minHoldCount}, 
+			isstopprofit=#{isStopProfit},stopprofitpot=#{stopProfitPot},isautosell=#{isAutoSell},startsell=#{startSell}, minsellcount=#{minSellCount}, minHoldCount=#{minHoldCount},
+			totalinvest=#{totalInvest}, riskrate=#{riskRate},
 			iszs=#{isZS}, isfenhonginvest=#{isFenhongInvest}, isIncrease=#{isIncrease}, isSetMinRate=#{isSetMinRate} 
 		WHERE user_id=#{userId} AND `code`=#{code}
     </update>

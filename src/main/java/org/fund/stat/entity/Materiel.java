@@ -28,6 +28,7 @@ public class Materiel {
 
     private Float moreMultiple; // 加倍
 
+    //Deprecated
     private Float firstInvest; // 首次投入
 
     private Integer isStopProfit; // 是否开启止盈提醒（0：关闭，1：开启），控制stopProfit属性开关
@@ -41,6 +42,7 @@ public class Materiel {
 
     private Integer minSellCount;// 最低赎回
 
+    //Deprecated
     private Integer isZS; // 是否开启“折算提醒”（0：关闭，1：开启）
 
     private Integer isFenhongInvest; // 是否开启“红利再投”（0：关闭，1：开启）
@@ -50,6 +52,10 @@ public class Materiel {
     private Integer isSetMinRate; // 是否开启“保证追加比”（0：关闭，1：开启）
 
     private Integer minHoldCount; // 最低保留份数
+
+    private Integer totalInvest; //资金总量
+
+    private Integer riskRate; //风控仓位 （百分之）
 
     public Long getUserId() {
         return userId;
@@ -235,4 +241,19 @@ public class Materiel {
         this.minHoldCount = minHoldCount;
     }
 
+    public Integer getTotalInvest() {
+        return totalInvest;
+    }
+
+    public void setTotalInvest(Integer totalInvest) {
+        this.totalInvest = totalInvest;
+    }
+
+    public Integer getRiskRate() {
+        return riskRate;
+    }
+
+    public void setRiskRate(Integer riskRate) {
+        this.riskRate = riskRate;
+    }
 }

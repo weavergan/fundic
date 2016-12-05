@@ -16,6 +16,7 @@ public class Record {
     private Float allProfitPrice; // 净盈亏 2位小数
     private Float allProfitPot; // 收益 2位小数
     private Float holdValue; // 持仓成本
+    //Deprecated 页面取消展示
     private Float addRatio; // 追加比 2位小数
     private String fundStatus; // 申购状态
     private String fundSellStatus; // 赎回状态

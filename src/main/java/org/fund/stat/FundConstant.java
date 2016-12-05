@@ -4,7 +4,7 @@ public class FundConstant {
 
     public static final String stat_list_url = "http://fund.eastmoney.com/f10/F10DataApi.aspx?type=lsjz&code=#{code}&page=1&per=500&sdate=#{startDate}&edate=#{endDate}&rt=#{rand}";
 
-    public static final String stat_list_url_encoding = "gb2312";
+    public static final String stat_list_url_encoding = "utf8";
     // 天天基金
     public static final String stat_valuation_tiantian = "http://fundgz.1234567.com.cn/js/#{code}.js?rt=#{rand}";
     // 好买基金

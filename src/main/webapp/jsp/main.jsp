@@ -97,24 +97,24 @@
 				<table style="width:90%;margin-top:10px;"  cellpadding="1px">
 					<tr>
 						<td align="right">止盈提醒</td>
-						<td><input id="isStopProfit" type="checkbox" onclick="checkIsStopProfit(this)"></input></td>
-						<td align="right">折算提醒</td>
-						<td><input id="isZS" type="checkbox" onclick="checkIsZS(this)"></input></td>
-					</tr>
-					<tr>
+						<td><input id="isStopProfit" type="checkbox" onclick="checkIsStopProfit(this)"></td>
 						<td align="right">红利再投</td>
-						<td><input id="isFenhongInvest" type="checkbox" onclick="checkFenhongInvest(this)"></input></td>
-						<td align="right">加仓优先</td>
-						<td><input id="isIncrease" type="checkbox" onclick="checkIsIncrease(this)"></input></td>
+						<td><input id="isFenhongInvest" type="checkbox" onclick="checkFenhongInvest(this)"></td>
+						<%--<td align="right">折算提醒</td>
+						<td><input id="isZS" type="checkbox" onclick="checkIsZS(this)"></input></td>--%>
 					</tr>
 					<tr>
+						<td align="right">加仓优先</td>
+						<td><input id="isIncrease" type="checkbox" onclick="checkIsIncrease(this)"></td>
 						<td align="right">越涨越卖</td>
-						<td><input id="isAutoSell" type="checkbox" onclick="checkIsAutoSell(this)"></input></td>
+						<td><input id="isAutoSell" type="checkbox" onclick="checkIsAutoSell(this)"></td>
+					</tr>
+					<tr>
 						<%
 						    if(user.getAuth() != 1) {
 						%> 
-						<td align="right">保证追加</td>
-						<td><input id="isSetMinRate" type="checkbox" onclick="checkIsSetMinRate(this)"></input></td>
+						<td align="right">修正追加</td>
+						<td><input id="isSetMinRate" type="checkbox" onclick="checkIsSetMinRate(this)"></td>
 						<%
 						    }
 						%>
@@ -144,8 +144,10 @@
 						</td>
 					</tr>
 					<tr>
-						<td align="center">首次投入：</td>
-						<td><input id="firstInvest" class="easyui-textbox" style="width:50px;height:30px" value="500"></input><label>元</label></td>
+						<td align="center">资金总量：</td>
+						<td><input id="totalInvest" class="easyui-textbox" style="width:50px;height:30px" value="50000">
+							<label>元</label>
+						</td>
 					</tr>
 					<tr>
 						<td align="center">起卖点位：</td>
@@ -161,20 +163,27 @@
 					</tr>
 					<tr>
 						<td align="center">起投跌幅：</td>
-						<td><input id="startInvest" class="easyui-numberspinner"  value="-0.5" data-options="precision:2,min:-9.00,max:9.00,required:true,increment:0.10" style="width:60px;height:30px"></input>
+						<td><input id="startInvest" class="easyui-numberspinner"  value="-0.5" data-options="precision:2,min:-9.00,max:9.00,required:true,increment:0.10" style="width:60px;height:30px">
 							<label>%</label>
 						</td>
 					</tr>
 					<%
 					    if(user.getAuth() != 1) {
-					%> 
+					%>
+					<tr>
+						<td align="center">风控仓位：</td>
+						<td align="left"><input id="riskRate" class="easyui-textbox" style="width:60px;height:30px" disabled="disabled" value="50">
+							<label>%</label>
+						</td>
+					</tr>
 					<tr>
 						<td align="center">倍　　数：</td>
-						<td align="left"><input id="baseMultiple" class="easyui-numberspinner"  value="1.2" data-options="precision:1,min:1.0,max:2,required:true,increment:0.1" style="width:60px;height:30px"></input></td>
+						<td align="left"><input id="baseMultiple" class="easyui-numberspinner"  value="1.2" data-options="precision:2,min:1.0,max:2,required:true,increment:0.05" style="width:60px;height:30px"></td>
 					</tr>
 					<tr>
 						<td align="center">加　　倍：</td>
-						<td><input id="moreMultiple" class="easyui-numberspinner"  value="0.1" data-options="precision:2,min:0,max:0.30,required:true,increment:0.05" style="width:60px;height:30px"></input></td>
+						<td><input id="moreMultiple" class="easyui-numberspinner"  value="0.1" data-options="precision:2,min:0,max:0.30,required:true,increment:0.05" style="width:60px;height:30px">
+						</td>
 					</tr>
 					<%
 					    }

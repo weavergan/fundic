@@ -36,7 +36,7 @@
 	<bean id="sqlSessionFactory_fundinc" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource_fundinc" />
 		<property name="mapperLocations"
-			value="classpath*:org/fund/user/dao/*.xml,
+			value="classpath*:org/fund/user/dao/UserDao.xml,
 				   classpath*:org/fund/stat/dao/*.xml" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

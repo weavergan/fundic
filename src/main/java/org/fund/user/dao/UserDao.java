@@ -7,7 +7,7 @@ import org.fund.user.entity.User;
 
 public interface UserDao {
 
-    public User getByUserName(String username);
+    public User getByUserName(@Param("username")String username);
 
     public Integer createUser(User user);
 

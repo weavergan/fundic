@@ -14,8 +14,8 @@
 		<result property="expiredDate" column="expired_date" jdbcType="INTEGER" />
 	</resultMap>
     
-	<select id="getByUserName" parameterType="String" resultMap="UserMap">
-    	SELECT * FROM t_user 
+	<select id="getByUserName" resultMap="UserMap">
+    	SELECT * FROM t_user
     	WHERE username = #{username}
     </select>
     

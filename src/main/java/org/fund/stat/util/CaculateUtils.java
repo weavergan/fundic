@@ -22,7 +22,7 @@ public class CaculateUtils {
         }
 
         r.setSumInc(0.00F);
-        r.setPurchasePrice(materiel.getFirstInvest().floatValue());
+        r.setPurchasePrice(materiel.getTotalInvest().floatValue() / 100);
         r.setPurchaseCount(r.getPurchasePrice() / (1 + materiel.getPurchaseFee().floatValue() / 10000) / r.getValue());
         r.setSellCount(0F);
         r.setSellPrice(0F);
@@ -44,6 +44,11 @@ public class CaculateUtils {
             Record row = list.get(i);
             Record lastRow = list.get(i - 1);
 
+            //到达风控仓位时，自动取消加仓优先
+            if(isIncrease == 1 && lastRow.getAllInvest() * 100 / materiel.getTotalInvest() > materiel.getRiskRate()) {
+                isIncrease = 0;
+            }
+
             Float curZS = 1F;
             Float curFH = 0F;
             if (row.getFenhong() != null && row.getFenhong().length() > 0 && row.getFenhong().indexOf("折算") > 0) {
@@ -58,6 +63,9 @@ public class CaculateUtils {
                 fh = fh + curFH;
             }
             row.setIncrease((float) ((row.getValue() + curFH) * curZS / lastRow.getValue() - 1));
+            // 当前收益率
+            float curProfitPot = lastRow.getHoldCount() * (row.getValue() + curFH) * curZS
+                    * (1 - materiel.getSellFee().floatValue() / 10000) / lastRow.getAllInvest() - 1;
 
             row.setSumInc((float) ((row.getValue() + fh) * zs / r.getValue() - 1));
 
@@ -68,10 +76,12 @@ public class CaculateUtils {
                     if (row.getIncrease() > materiel.getStartInvest().floatValue() / 10000) {
                         curMultiple = 0F;
                     } else {
-                        if (lastRow.getHoldCount() * row.getValue() * (1 - materiel.getSellFee().floatValue() / 10000)
-                                / lastRow.getAllInvest() - 1 + materiel.getPurchaseFee().floatValue() / 10000
-                                + materiel.getSellFee().floatValue() / 10000 > materiel.getBaseMultiple()
-                                * materiel.getStartInvest().floatValue() / 10000) {
+                        if(curProfitPot > materiel.getBaseMultiple() * (materiel.getStartInvest().floatValue() / 10000
+                                - materiel.getPurchaseFee().floatValue() / 10000 - materiel.getSellFee().floatValue() / 10000)) {
+//                        if (lastRow.getHoldCount() * row.getValue() * (1 - materiel.getSellFee().floatValue() / 10000)
+//                                / lastRow.getAllInvest() - 1 + materiel.getPurchaseFee().floatValue() / 10000
+//                                + materiel.getSellFee().floatValue() / 10000 > materiel.getBaseMultiple()
+//                                * materiel.getStartInvest().floatValue() / 10000) {
                             curMultiple = 0F;
                         } else {
                             if (curMultiple == 0) {
@@ -101,6 +111,11 @@ public class CaculateUtils {
                     row.setPurchasePrice(lastRow.getAllInvest() / 3);
                 }
             }
+            //资金不够用，自动修正
+            if(row.getPurchasePrice() + lastRow.getAllInvest() > materiel.getTotalInvest()) {
+                row.setPurchasePrice(materiel.getTotalInvest() - lastRow.getAllInvest());
+            }
+
             if (row.getPurchasePrice() != 0) {
                 lastNot0PurchasePrice = row.getPurchasePrice();
             }

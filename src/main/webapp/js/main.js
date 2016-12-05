@@ -74,13 +74,13 @@ function setUserCodes(data) {
 	}
 	clearData();
 	$('#fundcode').combobox('loadData', json);
-	
+
 }
 
 function clearData() {
 	$('#fundcode').combobox("clear");//清除当前值
 	$('#codeList').datagrid('loadData', { total: 0, rows: [] });
-	
+
 }
 
 //获取list
@@ -89,13 +89,13 @@ function calList() {
 		return;
 	}
 	theoreticList();
-	actualList();
+	// actualList();
 }
 function theoreticList() {
 	var url = '/fund/getCodeList.do';
 	var isStopProfit = 0;
 	var isAutoSell = 0;
-	var isZS = 0;
+	// var isZS = 0;
 	var isFenhongInvest = 0;
 	var isIncrease = 0;
 	var isSetMinRate = 0;
@@ -105,9 +105,9 @@ function theoreticList() {
 	if (document.getElementById("isAutoSell").checked){
 		isAutoSell = 1;
 	}
-	if (document.getElementById("isZS").checked){
-		isZS = 1;
-	}
+	// if (document.getElementById("isZS").checked){
+	// 	isZS = 1;
+	// }
 	if (document.getElementById("isFenhongInvest").checked){
 		isFenhongInvest = 1;
 	}
@@ -127,7 +127,8 @@ function theoreticList() {
 			baseMultiple:$("#baseMultiple").length > 0 ? $("#baseMultiple").textbox('getValue') : 1.2,
 			startInvest:Number($("#startInvest").textbox('getValue')) * 100,
 			moreMultiple:$("#moreMultiple").length > 0 ? $("#moreMultiple").textbox('getValue') : 0.1,
-			firstInvest:$("#firstInvest").textbox('getValue'),
+			// firstInvest:$("#firstInvest").textbox('getValue'),
+            totalInvest:$("#totalInvest").textbox('getValue'),
 			isStopProfit:isStopProfit,
 			stopProfitPot:Number($("#stopProfitPot").textbox('getValue')) * 100,
 			isAutoSell:isAutoSell,
@@ -136,14 +137,15 @@ function theoreticList() {
 			minHoldCount:$("#minHoldCount").textbox('getValue'),
 			startDate:$('#startDate').datebox('getValue'),
 			endDate:$("#endDate").datebox('getValue'),
-			isZS:isZS,
+			// isZS:isZS,
 			isFenhongInvest:isFenhongInvest,
 			isIncrease:isIncrease,
+            riskRate:$("#riskRate").textbox('getValue'),
 			isSetMinRate:isSetMinRate,
 			guzhiFrom:$("#guzhiFrom").combobox('getValue')
 		},
-		contentType: "application/json; charset=utf-8",     
-        dataType: "json", 
+		contentType: "application/json; charset=utf-8",
+        dataType: "json",
 		success : function(data) {
 			if(data.success) {
 				setCodeList(data.data);
@@ -156,14 +158,14 @@ function theoreticList() {
 function actualList() {
 	var description;
 	var dataJson = $('#actualCodeList').datagrid('getData');
-	for(var i in dataJson) { 
-		var property = dataJson[i]; 
+	for(var i in dataJson) {
+		var property = dataJson[i];
 		description += i + " = " + property +"\n";
-	} 
+	}
     alert(description);
 
 	return;
-	
+
 	var url = '/fund/getActualCodeList.do';
 	var isStopProfit = 0;
 	var isAutoSell = 0;
@@ -214,8 +216,8 @@ function actualList() {
 			isSetMinRate:isSetMinRate,
 			guzhiFrom:$("#guzhiFrom").combobox('getValue')
 		},
-		contentType: "application/json; charset=utf-8",     
-        dataType: "json", 
+		contentType: "application/json; charset=utf-8",
+        dataType: "json",
 		success : function(data) {
 			if(data.success) {
 				setActualCodeList(data.data);
@@ -234,7 +236,7 @@ function saveData() {
 	var url = '/fund/saveData.do';
 	var isStopProfit = 0;
 	var isAutoSell = 0;
-	var isZS = 0;
+	// var isZS = 0;
 	var isFenhongInvest = 0;
 	var isIncrease = 0;
 	var isSetMinRate = 0;
@@ -244,9 +246,9 @@ function saveData() {
 	if (document.getElementById("isAutoSell").checked){
 		isAutoSell = 1;
 	}
-	if (document.getElementById("isZS").checked){
-		isZS = 1;
-	}
+	// if (document.getElementById("isZS").checked){
+	// 	isZS = 1;
+	// }
 	if (document.getElementById("isFenhongInvest").checked){
 		isFenhongInvest = 1;
 	}
@@ -266,7 +268,8 @@ function saveData() {
 			baseMultiple:$("#baseMultiple").textbox('getValue'),
 			startInvest:Number($("#startInvest").textbox('getValue')) * 100,
 			moreMultiple:$("#moreMultiple").textbox('getValue'),
-			firstInvest:$("#firstInvest").textbox('getValue'),
+			// firstInvest:$("#firstInvest").textbox('getValue'),
+			totalInvest:$("#totalInvest").textbox('getValue'),
 			isStopProfit:isStopProfit,
 			stopProfitPot:Number($("#stopProfitPot").textbox('getValue')) * 100,
 			isAutoSell:isAutoSell,
@@ -275,13 +278,14 @@ function saveData() {
 			minHoldCount:$("#minHoldCount").textbox('getValue'),
 			startDate:$('#startDate').datebox('getValue'),
 			endDate:$("#endDate").datebox('getValue'),
-			isZS:isZS,
+			// isZS:isZS,
 			isFenhongInvest:isFenhongInvest,
 			isIncrease:isIncrease,
+            riskRate:$("#riskRate").textbox('getValue'),
 			isSetMinRate:isSetMinRate
 		},
-		contentType: "application/json; charset=utf-8",     
-        dataType: "json", 
+		contentType: "application/json; charset=utf-8",
+        dataType: "json",
 		success : function(data) {
 			if(data.success) {
 				alert("保存成功！");
@@ -314,38 +318,43 @@ function checkInformation() {
 		alert("请输入正确的赎回费率！");
 		return false;
 	}
-	if(!isFloat($('#firstInvest').textbox('getValue'))) {
-		alert("请输入正确的倍数！");
-		return false;
-	}
-	if(!isFloat($('#firstInvest').textbox('getValue'))) {
-		alert("请输入正确的起投跌幅！");
-		return false;
-	}
-	if(!isFloat($('#firstInvest').textbox('getValue'))) {
-		alert("请输入正确的加倍！");
-		return false;
-	}
-	if(!isFloat($('#firstInvest').textbox('getValue'))) {
-		alert("请输入正确的首次投入！");
-		return false;
-	}
-	if(!isFloat($('#stopProfitPot').textbox('getValue'))) {
-		alert("请输入正确的止盈点！");
-		return false;
-	}
-	if(!isFloat($('#startSell').textbox('getValue'))) {
-		alert("请输入正确的起赎收益！");
-		return false;
-	}
 	if(!isFloat($('#minSellCount').textbox('getValue'))) {
-		alert("请输入正确的最低赎回份数！");
+		alert("请输入正确的至少赎回份数！");
 		return false;
 	}
 	if(!isFloat($('#minHoldCount').textbox('getValue'))) {
-		alert("请输入正确的最低保留份数！");
+		alert("请输入正确的至少保留份数！");
 		return false;
 	}
+	if(!isInteger($('#totalInvest').textbox('getValue'))) {
+		alert("请输入正确的资金总量！");
+		return false;
+	}
+	if(!isFloat($('#startSell').textbox('getValue'))) {
+		alert("请输入正确的起卖点位！");
+		return false;
+	}
+	if(!isFloat($('#stopProfitPot').textbox('getValue'))) {
+		alert("请输入正确的止盈点位！");
+		return false;
+	}
+	if(!isFloat($('#startInvest').textbox('getValue'))) {
+		alert("请输入正确的起投跌幅！");
+		return false;
+	}
+	if(!isInteger($('#riskRate').textbox('getValue'))) {
+		alert("请输入正确的风控仓位！");
+		return false;
+	}
+	if(!isFloat($('#baseMultiple').textbox('getValue'))) {
+		alert("请输入正确的倍数！");
+		return false;
+	}
+	if(!isFloat($('#moreMultiple').textbox('getValue'))) {
+		alert("请输入正确的加倍！");
+		return false;
+	}
+
 	return true;
 }
 
@@ -362,8 +371,9 @@ function setCodeList(data) {
 		allProfitPotList.push(data[i].allProfitPot);
 	}
 	$('#codeList').datagrid('loadData', json);
-	
+
 }
+
 function setActualCodeList(data) {
 	ac_dateList = [];
 	ac_sumIncList = [];
@@ -376,7 +386,7 @@ function setActualCodeList(data) {
 		ac_allProfitPotList.push(data[i].allProfitPot);
 	}
 	$('#codeList').datagrid('loadData', json);
-	
+
 }
 
 function fail(data){
@@ -450,6 +460,11 @@ function checkFenhongInvest(obj) {
 }
 //加仓优先事件
 function checkIsIncrease(obj) {
+	if (obj.checked === true){
+		$("#riskRate").textbox('enable');
+	} else {
+		$("#riskRate").textbox('disable');
+	}
 }
 //越长越卖事件
 function checkIsAutoSell(obj) {
@@ -504,7 +519,8 @@ function setOneCode(data) {
 		$("#baseMultiple").textbox('setValue',data.baseMultiple);
 		$("#startInvest").textbox('setValue',data.startInvest/100);
 		$("#moreMultiple").textbox('setValue',data.moreMultiple);
-		$("#firstInvest").textbox('setValue',data.firstInvest);
+		// $("#firstInvest").textbox('setValue',data.firstInvest);
+        $("#totalInvest").textbox('setValue',data.totalInvest);
 		if(data.isStopProfit === 1) {
 			document.getElementById("isStopProfit").checked = true;
 			$("#stopProfitPot").combobox('enable'); 
@@ -537,20 +553,23 @@ function setOneCode(data) {
 		} else {
 			$("#endDate").datebox('setValue',now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate());
 		}
-		if(data.isZS === 1) {
-			document.getElementById("isZS").checked = true;
-		} else {
-			document.getElementById("isZS").checked = false; 
-		}
+		// if(data.isZS === 1) {
+		// 	document.getElementById("isZS").checked = true;
+		// } else {
+		// 	document.getElementById("isZS").checked = false;
+		// }
 		if(data.isFenhongInvest === 1) {
 			document.getElementById("isFenhongInvest").checked = true;
 		} else {
 			document.getElementById("isFenhongInvest").checked = false; 
 		}
+        $("#riskRate").textbox('setValue',data.riskRate);
 		if(data.isIncrease === 1) {
 			document.getElementById("isIncrease").checked = true;
-		} else {
-			document.getElementById("isIncrease").checked = false; 
+            $("#riskRate").combobox('enable');
+        } else {
+			document.getElementById("isIncrease").checked = false;
+            $("#riskRate").combobox('disable');
 		}
 		if(userAuth > 1) {//会员才显示
 			if(data.isSetMinRate === 1) {
@@ -604,7 +623,7 @@ function exitLogin() {
 		contentType: "application/json; charset=utf-8",     
         dataType: "json" 
 	});
-	window.location.href= "/index.jsp";
+	window.location.href= "/index.html";
 }
 
 function showChart() {

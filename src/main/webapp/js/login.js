@@ -183,7 +183,7 @@ function resetPassword(){
 		success : function(data) {
 			if(data.success) {
 				alert("密码重置成功，请重新登录！");
-				window.location.href= "/index.jsp";
+				window.location.href= "/index.html";
 			} else {
 				fail(data);
 				changeCheckNum2();
