@@ -1,6 +1,7 @@
 var now = new Date();
 var yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
+var userAuth;
 
 function dealLoginError(data) {
 	var errorMsgList = [];
@@ -168,8 +169,12 @@ function resetParameters() {
 	$("#minHoldCount").combobox('disable'); 
 	$("#isSetMinRate").attr("checked", false); 
 	
-	$("#startDate").datebox('setValue','2016-04-15');
-	$("#endDate").datebox('setValue',yesterday.getFullYear() + "-" + (yesterday.getMonth() + 1) + "-" + yesterday.getDate());
-	
+	$("#startDate").datebox('setValue','2016-08-18');
+	if(userAuth > 1) {
+		$("#endDate").datebox('setValue',now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate());
+	} else {
+		$("#endDate").datebox('setValue',yesterday.getFullYear() + "-" + (yesterday.getMonth() + 1) + "-" + yesterday.getDate());
+	}
+
 	$('#codeList').datagrid('loadData', { total: 0, rows: [] });
 }

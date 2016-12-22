@@ -11,7 +11,8 @@
 	
 	<task:scheduled-tasks>   
         <task:scheduled ref="memUserTaskManager" method="memExpiredUpdate" cron="0 11 2 * * *"/>   
-	</task:scheduled-tasks>  
+        <!--<task:scheduled ref="smsSubscriptionTaskManager" method="dealSmsSubscription" cron="0 0 20 * * *"/>-->
+	</task:scheduled-tasks>
 	  
 	<context:component-scan base-package="org.fund.task" />  
 

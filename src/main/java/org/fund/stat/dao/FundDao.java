@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.fund.stat.entity.Materiel;
+import org.fund.stat.entity.SMSScription;
 
 public interface FundDao {
 
@@ -22,4 +23,14 @@ public interface FundDao {
     // 删除一个基金参数
     void deleteFundData(@Param("userId") Long userId, @Param("code") String code);
 
+    //订阅短信提醒
+    public void smsSubscription(@Param("userId") Long userId, @Param("code") String code);
+
+    //取消订阅
+    public void cancelSmsSub(@Param("userId") Long userId, @Param("code") String code);
+
+    //获取订阅情况
+    public SMSScription getSmsSubscription(@Param("userId") Long userId, @Param("code") String code);
+
+    public List<SMSScription> getAllSmsSubscription();
 }

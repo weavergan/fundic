@@ -13,11 +13,19 @@ public class Test {
 //		  Matcher matcher = pattern.matcher("/js/easyui/themes/icon.css");
 //		  System.out.println(matcher.matches());
 
-		String[] strs = Test.tokenizeToStringArray("org.fund.user.dao,org.fund.stat.dao", ",; \t\n", true, true);
-		for (String str: strs
-			 ) {
-			System.out.println(str);
-		}
+//		String[] strs = Test.tokenizeToStringArray("org.fund.user.dao,org.fund.stat.dao", ",; \t\n", true, true);
+//		for (String str: strs
+//			 ) {
+//			System.out.println(str);
+//		}
+
+		List<Integer> codes = new ArrayList<Integer>();
+		codes.add(1);
+		codes.add(3);
+		codes.add(5);
+		codes.add(4);
+		codes.add(12);
+		System.out.println(codes);
 	}
 
 	public static String[] tokenizeToStringArray(

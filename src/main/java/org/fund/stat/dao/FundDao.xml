@@ -4,7 +4,7 @@
 
 <mapper namespace="org.fund.stat.dao.FundDao">
 	
-	<resultMap type="org.fund.stat.entity.Materiel" id="UserMap">
+	<resultMap type="org.fund.stat.entity.Materiel" id="MaterielMap">
 		<result property="userId" column="user_id" jdbcType="INTEGER" />
 		<result property="code" column="code" jdbcType="VARCHAR" />
 		<result property="startDate" column="start_date" jdbcType="DATE" />
@@ -31,12 +31,22 @@
 		<result property="riskRate" column="riskrate" jdbcType="INTEGER" />
 	</resultMap>
 
-	<select id="getMaterielsById" parameterType="String" resultMap="UserMap">
+	<resultMap type="org.fund.stat.entity.SMSScription" id="SMSMap">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<result property="userId" column="user_id" jdbcType="INTEGER" />
+		<result property="username" column="username" jdbcType="VARCHAR" />
+		<result property="code" column="code" jdbcType="VARCHAR" />
+		<result property="isValid" column="isvalid" jdbcType="INTEGER" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="getMaterielsById" parameterType="String" resultMap="MaterielMap">
     	SELECT * FROM t_materiel 
     	WHERE user_id = #{userId}
     </select>
     
-    <select id="getMaterielByCode" resultMap="UserMap">
+    <select id="getMaterielByCode" resultMap="MaterielMap">
     	SELECT * FROM t_materiel 
     	WHERE user_id = #{userId} AND code = #{code}
     </select>
@@ -45,19 +55,41 @@
     	INSERT INTO `t_materiel`(user_id, `code`,start_date,end_date,create_time,update_time,purchaseFee,sellfee,basemultiple,startinvest,moremultiple,firstinvest,isstopprofit,stopprofitpot,isautosell,startsell, minsellcount,minHoldCount,totalinvest,riskrate, iszs, isfenhonginvest, isIncrease, isSetMinRate)
 		VALUES(#{userId}, #{code}, #{startDate}, #{endDate}, now(), now(), #{purchaseFee}, #{sellFee}, #{baseMultiple}, #{startInvest}, #{moreMultiple}, 0, #{isStopProfit}, #{stopProfitPot}, #{isAutoSell}, #{startSell}, #{minSellCount}, #{minHoldCount},#{totalInvest},#{riskRate}, #{isZS}, #{isFenhongInvest}, #{isIncrease}, #{isSetMinRate})
     </insert>
-    
-    <update id="updateMaterielsByCode">
-	    UPDATE `t_materiel` SET start_date=#{startDate},end_date=#{endDate},update_time=now(), 
-			purchaseFee=#{purchaseFee},sellfee=#{sellFee},basemultiple=#{baseMultiple},startinvest=#{startInvest},moremultiple=#{moreMultiple}, 
+
+	<update id="updateMaterielsByCode">
+	    UPDATE `t_materiel` SET start_date=#{startDate},end_date=#{endDate},update_time=now(),
+			purchaseFee=#{purchaseFee},sellfee=#{sellFee},basemultiple=#{baseMultiple},startinvest=#{startInvest},moremultiple=#{moreMultiple},
 			isstopprofit=#{isStopProfit},stopprofitpot=#{stopProfitPot},isautosell=#{isAutoSell},startsell=#{startSell}, minsellcount=#{minSellCount}, minHoldCount=#{minHoldCount},
 			totalinvest=#{totalInvest}, riskrate=#{riskRate},
-			iszs=#{isZS}, isfenhonginvest=#{isFenhongInvest}, isIncrease=#{isIncrease}, isSetMinRate=#{isSetMinRate} 
+			iszs=#{isZS}, isfenhonginvest=#{isFenhongInvest}, isIncrease=#{isIncrease}, isSetMinRate=#{isSetMinRate}
 		WHERE user_id=#{userId} AND `code`=#{code}
     </update>
-    
-    <delete id="deleteFundData">
-    	DELETE FROM `t_materiel` 
+
+	<delete id="deleteFundData">
+    	DELETE FROM `t_materiel`
     	 WHERE user_id=#{userId} AND `code`=#{code}
     </delete>
-    
+
+	<insert id="smsSubscription">
+		INSERT INTO `t_sms`(user_id, `code`,isvalid,create_time,update_time)
+		VALUES(#{userId}, #{code}, 1, now(), now())
+		ON DUPLICATE KEY
+		UPDATE isvalid = 1, update_time = now()
+	</insert>
+
+	<update id="cancelSmsSub">
+		update `t_sms` SET isvalid = 0, update_time = now()
+		WHERE user_id=#{userId} AND `code`=#{code}
+	</update>
+
+	<select id="getSmsSubscription" resultMap="SMSMap">
+		select * from `t_sms`
+		WHERE user_id=#{userId} AND `code`=#{code}
+	</select>
+
+	<select id="getAllSmsSubscription" resultMap="SMSMap">
+		select s.*,u.username from `t_sms` s
+		join t_user u on s.user_id = u.id
+		WHERE s.isvalid = 1
+	</select>
 </mapper>

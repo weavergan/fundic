@@ -5,12 +5,13 @@ import java.util.List;
 import org.fund.exception.NoDataException;
 import org.fund.stat.entity.Materiel;
 import org.fund.stat.entity.Record;
+import org.fund.stat.entity.SMSScription;
 
 public interface FundService {
 
     public List<Materiel> getMaterielsByUserId(Long userId);
 
-    public List<Record> getListByCode(Materiel materiel, Integer guzhiFrom) throws NoDataException;
+    public List<Record> getListByCode(Materiel materiel, Integer guzhiFrom, Integer auth) throws NoDataException;
 
     // 保存用户参数
     public void saveData(Materiel materiel);
@@ -24,4 +25,9 @@ public interface FundService {
     // 删除该基金参数
     public void deleteFundData(Long userId, String code);
 
+    public void smsSubscription(Long userId, String code);
+
+    public void cancelSmsSub(Long userId, String code);
+
+    public SMSScription getSmsSubscription(Long userId, String code);
 }

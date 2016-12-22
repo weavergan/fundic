@@ -50,7 +50,7 @@
 	</div>
 	<div><span style="font-size:28px;font-weight:bold;padding-left:30px;">风险大师</span></div>
 	<div style="margin: 20px 0;"></div>
-	<div class="easyui-layout" style=" height: 100%;">
+	<div id="main_layout" class="easyui-layout" style=" height: 100%;">
 		<div data-options="region:'north'" style="height: 100px">
 			<div class="north-left-content">
 				<span>基金代码：</span>
@@ -115,6 +115,8 @@
 						%> 
 						<td align="right">修正追加</td>
 						<td><input id="isSetMinRate" type="checkbox" onclick="checkIsSetMinRate(this)"></td>
+						<%--<td align="right">短信订阅</td>
+						<td><input id="smsSubscription" type="checkbox" onclick="checkSmsSubscription(this)"></td>--%>
 						<%
 						    }
 						%>

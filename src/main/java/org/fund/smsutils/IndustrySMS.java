@@ -43,4 +43,14 @@ public class IndustrySMS {
     public static void main(String[] args) {
         execute();
     }
+
+    public static String executeWithTemplate(String username, String template) {
+        String url = Config.BASE_URL + operation;
+        String body = "accountSid=" + accountSid + "&smsContent=" + template + "&to="
+                + to.replace("#{mobileNum}", username) + HttpUtil.createCommonParam();
+
+        // 提交请求
+        String result = HttpUtil.post(url, body);
+        return result;
+    }
 }

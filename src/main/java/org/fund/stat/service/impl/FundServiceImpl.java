@@ -15,6 +15,7 @@ import org.fund.stat.FundConstant;
 import org.fund.stat.dao.FundDao;
 import org.fund.stat.entity.Materiel;
 import org.fund.stat.entity.Record;
+import org.fund.stat.entity.SMSScription;
 import org.fund.stat.service.FundService;
 import org.fund.stat.util.CaculateUtils;
 import org.fund.stat.util.GetDataUtils;
@@ -73,7 +74,7 @@ public class FundServiceImpl implements FundService {
     }
 
     @Override
-    public List<Record> getListByCode(Materiel materiel, Integer guzhiFrom) throws NoDataException {
+    public List<Record> getListByCode(Materiel materiel, Integer guzhiFrom, Integer auth) throws NoDataException {
         String url = FundConstant.stat_list_url.replace("#{code}", materiel.getCode())
                 .replace("#{startDate}", materiel.getStartDate()).replace("#{endDate}", materiel.getEndDate())
                 .replace("#{rand}", String.valueOf(Math.random()));
@@ -84,7 +85,7 @@ public class FundServiceImpl implements FundService {
         // 反序
         Collections.reverse(recordList);
         // 如果结束日期是今天，需要添加一条
-        addTodayList(recordList, materiel, guzhiFrom);
+        addTodayList(recordList, materiel, guzhiFrom, auth);
         // 如果没有数据抛出异常
         if (CollectionUtils.isEmpty(recordList)) {
             throw new NoDataException();
@@ -98,9 +99,8 @@ public class FundServiceImpl implements FundService {
     }
 
     // 如果结束日期是今天，需要添加一条
-    private void addTodayList(List<Record> recordList, Materiel materiel, Integer guzhiFrom) {
-        User u = UserHolder.getUser();
-        if (u.getAuth() == AuthType.NORMAL_USER.getId()) { // 普通用户无法获取当天数据
+    private void addTodayList(List<Record> recordList, Materiel materiel, Integer guzhiFrom, Integer auth) {
+        if (auth == AuthType.NORMAL_USER.getId()) { // 普通用户无法获取当天数据
             return;
         }
         Date today = new Date();
@@ -303,5 +303,21 @@ public class FundServiceImpl implements FundService {
     @Override
     public void deleteFundData(Long userId, String code) {
         fundDao.deleteFundData(userId, code);
+        fundDao.cancelSmsSub(userId, code);
+    }
+
+    @Override
+    public void smsSubscription(Long userId, String code) {
+        fundDao.smsSubscription(userId, code);
+    }
+
+    @Override
+    public void cancelSmsSub(Long userId, String code) {
+        fundDao.cancelSmsSub(userId, code);
+    }
+
+    @Override
+    public SMSScription getSmsSubscription(Long userId, String code) {
+        return fundDao.getSmsSubscription(userId, code);
     }
 }

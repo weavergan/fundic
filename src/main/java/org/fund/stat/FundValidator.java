@@ -13,7 +13,7 @@ import org.fund.util.UserHolder;
 
 public class FundValidator {
 
-    public static List<Integer> DateValidate(Materiel materiel) {
+    public static List<Integer> DateValidate(Materiel materiel, Integer auth) {
         List<Integer> codes = new ArrayList<Integer>();
         Date startDate = DateUtil.stringToDate(materiel.getStartDate());
         Date endDate = DateUtil.stringToDate(materiel.getEndDate());
@@ -28,7 +28,7 @@ public class FundValidator {
         // 非会员用户无法选择当天
         String today = DateUtil.dateToString(new Date());
         try {
-            if (UserHolder.getUser().getAuth() == AuthType.NORMAL_USER.getId()
+            if (auth == AuthType.NORMAL_USER.getId()
                     && !DateUtil.before(materiel.getEndDate(), today)) {
                 codes.add(ErrorEnum.NOT_MEM_CANNOT_CHOOSE_TODAY.getCode());
             }

@@ -6,7 +6,6 @@ var allProfitPotList = [];
 var ac_dateList = [];
 var ac_sumIncList = [];
 var ac_allProfitPotList = [];
-var userAuth;
 
 $(function() {
 	getUserAuth();
@@ -140,7 +139,7 @@ function theoreticList() {
 			// isZS:isZS,
 			isFenhongInvest:isFenhongInvest,
 			isIncrease:isIncrease,
-            riskRate:$("#riskRate").textbox('getValue'),
+            riskRate:$("#riskRate").length > 0 ?$("#riskRate").textbox('getValue') : 40,
 			isSetMinRate:isSetMinRate,
 			guzhiFrom:$("#guzhiFrom").combobox('getValue')
 		},
@@ -255,7 +254,7 @@ function saveData() {
 	if (document.getElementById("isIncrease").checked){
 		isIncrease = 1;
 	}
-	if (document.getElementById("isSetMinRate").checked){
+	if (userAuth > 1 && document.getElementById("isSetMinRate").checked){
 		isSetMinRate = 1;
 	}
 	$.ajax({
@@ -265,9 +264,9 @@ function saveData() {
 			code:$("#fundcode").combobox('getValue'),
 			purchaseFee:Number($("#purchaseFee").textbox('getValue')) * 100,
 			sellFee:Number($("#sellFee").textbox('getValue')) * 100,
-			baseMultiple:$("#baseMultiple").textbox('getValue'),
+			baseMultiple:$("#baseMultiple").length > 0 ? $("#baseMultiple").textbox('getValue') : 1.2,
 			startInvest:Number($("#startInvest").textbox('getValue')) * 100,
-			moreMultiple:$("#moreMultiple").textbox('getValue'),
+			moreMultiple:$("#moreMultiple").length > 0 ? $("#moreMultiple").textbox('getValue') : 0.1,
 			// firstInvest:$("#firstInvest").textbox('getValue'),
 			totalInvest:$("#totalInvest").textbox('getValue'),
 			isStopProfit:isStopProfit,
@@ -281,7 +280,7 @@ function saveData() {
 			// isZS:isZS,
 			isFenhongInvest:isFenhongInvest,
 			isIncrease:isIncrease,
-            riskRate:$("#riskRate").textbox('getValue'),
+            riskRate:$("#riskRate").length > 0 ? $("#riskRate").textbox('getValue') : 40,
 			isSetMinRate:isSetMinRate
 		},
 		contentType: "application/json; charset=utf-8",
@@ -342,17 +341,19 @@ function checkInformation() {
 		alert("请输入正确的起投跌幅！");
 		return false;
 	}
-	if(!isInteger($('#riskRate').textbox('getValue'))) {
-		alert("请输入正确的风控仓位！");
-		return false;
-	}
-	if(!isFloat($('#baseMultiple').textbox('getValue'))) {
-		alert("请输入正确的倍数！");
-		return false;
-	}
-	if(!isFloat($('#moreMultiple').textbox('getValue'))) {
-		alert("请输入正确的加倍！");
-		return false;
+	if(userAuth > 1) {
+		if(!isInteger($('#riskRate').textbox('getValue'))) {
+			alert("请输入正确的风控仓位！");
+			return false;
+		}
+		if(!isFloat($('#baseMultiple').textbox('getValue'))) {
+			alert("请输入正确的倍数！");
+			return false;
+		}
+		if(!isFloat($('#moreMultiple').textbox('getValue'))) {
+			alert("请输入正确的加倍！");
+			return false;
+		}
 	}
 
 	return true;
@@ -371,7 +372,11 @@ function setCodeList(data) {
 		allProfitPotList.push(data[i].allProfitPot);
 	}
 	$('#codeList').datagrid('loadData', json);
-
+	//alert(data.length);
+	var minHeight = 640;
+	$('#main_layout').layout("resize",{
+		height:Math.max((data.length * 25 + 240), minHeight) + "px"
+	});
 }
 
 function setActualCodeList(data) {
@@ -482,12 +487,74 @@ function checkIsAutoSell(obj) {
 function checkIsSetMinRate(obj) {
 }
 
+function checkSmsSubscription(obj) {
+	if(userAuth > 1) {//会员才能使用
+		if (obj.checked === true) {//勾选
+			if (window.confirm('勾选后，每天14：50分会收到是否加仓及申购金额的短信提醒(请确保该基金数据已经保存，否则无法发送)，确认订阅？')) {
+				var url = '/fund/mem/smsSubscription.do';
+				$.ajax({
+					type: "GET",
+					url: url,
+					data: {
+						code: $("#fundcode").combobox('getValue')
+					},
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function (data) {
+						if (data.success) {
+							alert("订阅成功");
+						} else {
+							fail(data);
+							obj.checked = false;
+						}
+					}
+				});
+
+				return true;
+			} else {
+				obj.checked = false;
+				return false;
+			}
+		} else {
+			if (window.confirm('取消订阅将不再受到此类短信，确认取消吗？')) {
+				var url = '/fund/mem/cancelSmsSub.do';
+				$.ajax({
+					type: "GET",
+					url: url,
+					data: {
+						code: $("#fundcode").combobox('getValue')
+					},
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function (data) {
+						if (data.success) {
+							alert("取消成功");
+						} else {
+							obj.checked = true;
+							fail(data);
+						}
+					}
+				});
+				return true;
+			} else {
+				obj.checked = true;
+				return false;
+			}
+		}
+	} else {
+		alert("抱歉，该功能暂时只对VIP用户开放，请升级之后使用！")
+	}
+}
+
 //改变基金代码
 function changeCode() {
 	var value = $("#fundcode").combobox('getValue');
 	if(value.length == 6) {
 		getOneCode(value);
-	}	
+		if(userAuth > 1) {
+			getSmsSubscription(value);
+		}
+	}
 }
 
 //获取代码属性
@@ -779,3 +846,31 @@ function getUserAuth(){
 		}
 	});
 }
+//获取短信订阅
+function getSmsSubscription(value) {
+	var url = '/fund/mem/getSmsSubscription.do';
+	//获取用户保存的code
+	$.ajax({
+		type : "GET",
+		url : url,
+		data: {
+			code: value
+		},
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success : function(data) {
+			if(data.success) {
+				setSmsSubscription(data.data);
+			} else {
+				fail(data);
+			}
+		}
+	});
+}
+var setSmsSubscription = function (data) {
+	if(data == 1) {
+		document.getElementById("smsSubscription").checked = true;
+	} else {
+		document.getElementById("smsSubscription").checked = false;
+	}
+};

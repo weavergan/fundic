@@ -8,6 +8,7 @@ import org.fund.exception.NoDataException;
 import org.fund.stat.FundValidator;
 import org.fund.stat.entity.Materiel;
 import org.fund.stat.entity.Record;
+import org.fund.stat.entity.SMSScription;
 import org.fund.stat.service.FundService;
 import org.fund.util.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class FundController {
     public Result getCodeList(Materiel materiel, Integer guzhiFrom) {
         Result result = new Result();
 
-        List<Integer> codes = FundValidator.DateValidate(materiel);
+        List<Integer> codes = FundValidator.DateValidate(materiel, UserHolder.getUser().getAuth());
         if (CollectionUtils.isNotEmpty(codes)) {
             result.addErrorCodes(codes);
             return result;
@@ -59,7 +60,7 @@ public class FundController {
 
         List<Record> data;
         try {
-            data = fundService.getListByCode(materiel, guzhiFrom);
+            data = fundService.getListByCode(materiel, guzhiFrom,UserHolder.getUser().getAuth());
         } catch (NoDataException e) {
             result.addError("暂无数据，请确认基金代码或者日期是否填写正确！");
             return result;
@@ -124,6 +125,35 @@ public class FundController {
     public Result deleteData(String code) {
         Result result = new Result();
         fundService.deleteFundData(UserHolder.getUserId(), code);
+        return result;
+    }
+
+    @RequestMapping(value = "/mem/smsSubscription.do")
+    @ResponseBody
+    public Result smsSubscription(String code) {
+        Result result = new Result();
+        fundService.smsSubscription(UserHolder.getUserId(), code);
+        return result;
+    }
+
+    @RequestMapping(value = "/mem/cancelSmsSub.do")
+    @ResponseBody
+    public Result cancelSmsSub(String code) {
+        Result result = new Result();
+        fundService.cancelSmsSub(UserHolder.getUserId(), code);
+        return result;
+    }
+
+    @RequestMapping(value = "/mem/getSmsSubscription.do")
+    @ResponseBody
+    public Result getSmsSubscription(String code) {
+        Result result = new Result();
+        SMSScription s = fundService.getSmsSubscription(UserHolder.getUserId(), code);
+        if(s != null) {
+            result.setData(s.getIsValid());
+        } else {
+            result.setData(0);
+        }
         return result;
     }
 
