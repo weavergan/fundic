@@ -1,12 +1,5 @@
 package org.fund.stat.service.impl;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.fund.common.ConstantEnum.AuthType;
@@ -14,14 +7,13 @@ import org.fund.exception.NoDataException;
 import org.fund.stat.FundConstant;
 import org.fund.stat.dao.FundDao;
 import org.fund.stat.entity.Materiel;
+import org.fund.stat.entity.Operation;
 import org.fund.stat.entity.Record;
 import org.fund.stat.entity.SMSScription;
 import org.fund.stat.service.FundService;
 import org.fund.stat.util.CaculateUtils;
 import org.fund.stat.util.GetDataUtils;
-import org.fund.user.entity.User;
 import org.fund.util.DateUtil;
-import org.fund.util.UserHolder;
 import org.htmlparser.NodeFilter;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.TagNameFilter;
@@ -33,6 +25,9 @@ import org.htmlparser.util.ParserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+
+import java.math.BigDecimal;
+import java.util.*;
 
 @Service("fundService")
 public class FundServiceImpl implements FundService {
@@ -74,7 +69,7 @@ public class FundServiceImpl implements FundService {
     }
 
     @Override
-    public List<Record> getListByCode(Materiel materiel, Integer guzhiFrom, Integer auth) throws NoDataException {
+    public List<Record> getListByCode(Materiel materiel, Integer guzhiFrom, Integer auth, boolean isActual, Long userId) throws NoDataException {
         String url = FundConstant.stat_list_url.replace("#{code}", materiel.getCode())
                 .replace("#{startDate}", materiel.getStartDate()).replace("#{endDate}", materiel.getEndDate())
                 .replace("#{rand}", String.valueOf(Math.random()));
@@ -91,7 +86,13 @@ public class FundServiceImpl implements FundService {
             throw new NoDataException();
         }
         // 计算其它列
-        CaculateUtils.calculate2(recordList, materiel);
+        if(!isActual) {
+            CaculateUtils.calculate2(recordList, materiel);
+        } else {
+            //实际操作
+            List<Operation> operations = fundDao.getOperationsByUserIdAndCode(userId, materiel.getCode());
+            CaculateUtils.calculateForActual(recordList, materiel, operations);
+        }
         // 保留两位小数
         CaculateUtils.round(recordList);
 

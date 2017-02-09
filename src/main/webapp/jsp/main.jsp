@@ -250,38 +250,38 @@
 						<thead>
 							<tr>
 								<!-- <th field="no" width="3%" align="center">ID</th> -->
-								<th field="ac_date" align="center">日期</th>
-								<th field="ac_value" align="center">净值</th>
-								<th field="ac_increase" align="center" styler="columnStyler">涨幅(%)</th>
-								<th field="ac_sumInc" align="center">累涨(%)</th>
-								<th field="ac_purchasePrice" align="center">申购金额</th>
+								<th field="date" align="center">日期</th>
+								<th field="value" align="center">净值</th>
+								<th field="increase" align="center" styler="columnStyler">涨幅(%)</th>
+								<th field="sumInc" align="center">累涨(%)</th>
+								<th field="purchasePrice" align="center">申购金额</th>
 								<%
 								    if(user.getAuth() != 1) {
 								%> 
-								<th field="ac_purchaseCount" align="center">确认份额</th>
+								<th field="purchaseCount" align="center">确认份额</th>
 								<%
 								    }
 								%>
-								<th field="ac_sellCount" align="center">赎回份额</th>
+								<th field="sellCount" align="center">赎回份额</th>
 								<%
 								    if(user.getAuth() != 1) {
 								%> 
-								<th field="ac_sellPrice" align="center">确认金额</th>
+								<th field="sellPrice" align="center">确认金额</th>
 								<%
 								    }
 								%>
-								<th field="ac_holdCount" align="center">持有份额</th>
-								<th field="ac_holdPrice" align="center">资产市值</th>
-								<th field="ac_allInvest" align="center">总投入</th>
-								<th field="ac_allProfitPrice" align="center">净盈亏</th>
-								<th field="ac_allProfitPot" align="center" styler="columnStyler">收益(%)</th>
+								<th field="holdCount" align="center">持有份额</th>
+								<th field="holdPrice" align="center">资产市值</th>
+								<th field="allInvest" align="center">总投入</th>
+								<th field="allProfitPrice" align="center">净盈亏</th>
+								<th field="allProfitPot" align="center" styler="columnStyler">收益(%)</th>
 								<%
 								    if(user.getAuth() != 1) {
 								%> 
-								<th field="ac_holdValue" align="center">持仓成本</th>
-								<th field="ac_fundStatus" align="center">申购状态</th>
-								<th field="ac_fundSellStatus" align="center">赎回状态</th>
-								<th field="ac_fenhong" align="center">分红配送</th>
+								<th field="holdValue" align="center">持仓成本</th>
+								<th field="fundStatus" align="center">申购状态</th>
+								<th field="fundSellStatus" align="center">赎回状态</th>
+								<th field="fenhong" align="center">分红配送</th>
 								<%
 								    }
 								%>

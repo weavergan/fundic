@@ -1,17 +1,19 @@
 package org.fund.stat.service;
 
-import java.util.List;
-
 import org.fund.exception.NoDataException;
 import org.fund.stat.entity.Materiel;
 import org.fund.stat.entity.Record;
 import org.fund.stat.entity.SMSScription;
 
+import java.util.List;
+
 public interface FundService {
 
     public List<Materiel> getMaterielsByUserId(Long userId);
 
-    public List<Record> getListByCode(Materiel materiel, Integer guzhiFrom, Integer auth) throws NoDataException;
+    //获取列表list
+    //isActual:false 理论计算; true 实际操作
+    public List<Record> getListByCode(Materiel materiel, Integer guzhiFrom, Integer auth, boolean isActual, Long userId) throws NoDataException;
 
     // 保存用户参数
     public void saveData(Materiel materiel);

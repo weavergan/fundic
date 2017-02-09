@@ -1,20 +1,19 @@
 package org.fund.stat.controller;
 
-import java.util.List;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.fund.common.Result;
 import org.fund.exception.NoDataException;
 import org.fund.stat.FundValidator;
 import org.fund.stat.entity.Materiel;
 import org.fund.stat.entity.Record;
-import org.fund.stat.entity.SMSScription;
 import org.fund.stat.service.FundService;
 import org.fund.util.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/fund")
@@ -60,7 +59,7 @@ public class FundController {
 
         List<Record> data;
         try {
-            data = fundService.getListByCode(materiel, guzhiFrom,UserHolder.getUser().getAuth());
+            data = fundService.getListByCode(materiel, guzhiFrom, UserHolder.getUser().getAuth(), false, UserHolder.getUser().getUserId().longValue());
         } catch (NoDataException e) {
             result.addError("暂无数据，请确认基金代码或者日期是否填写正确！");
             return result;
@@ -76,22 +75,22 @@ public class FundController {
     public Result getActualCodeList(Materiel materiel, Integer guzhiFrom) {
         Result result = new Result();
 
-        // List<Integer> codes = FundValidator.DateValidate(materiel);
-        // if (CollectionUtils.isNotEmpty(codes)) {
-        // result.addErrorCodes(codes);
-        // return result;
-        // }
-        //
-        // List<Record> data;
-        // try {
-        // // data = fundService.getActualListByCode(materiel, guzhiFrom);
-        // } catch (NoDataException e) {
-        // result.addError("暂无数据，请确认基金代码或者日期是否填写正确！");
-        // return result;
-        // }
-        // if (data != null) {
-        // result.setData(data);
-        // }
+         List<Integer> codes = FundValidator.DateValidate(materiel, UserHolder.getUser().getAuth());
+         if (CollectionUtils.isNotEmpty(codes)) {
+         result.addErrorCodes(codes);
+         return result;
+         }
+
+         List<Record> data;
+         try {
+          data = fundService.getListByCode(materiel, guzhiFrom, UserHolder.getUser().getAuth(), true, UserHolder.getUser().getUserId().longValue());
+         } catch (NoDataException e) {
+         result.addError("暂无数据，请确认基金代码或者日期是否填写正确！");
+         return result;
+         }
+         if (data != null) {
+         result.setData(data);
+         }
         return result;
     }
 
@@ -144,17 +143,17 @@ public class FundController {
         return result;
     }
 
-    @RequestMapping(value = "/mem/getSmsSubscription.do")
-    @ResponseBody
-    public Result getSmsSubscription(String code) {
-        Result result = new Result();
-        SMSScription s = fundService.getSmsSubscription(UserHolder.getUserId(), code);
-        if(s != null) {
-            result.setData(s.getIsValid());
-        } else {
-            result.setData(0);
-        }
-        return result;
-    }
+//    @RequestMapping(value = "/mem/getSmsSubscription.do")
+//    @ResponseBody
+//    public Result getSmsSubscription(String code) {
+//        Result result = new Result();
+//        SMSScription s = fundService.getSmsSubscription(UserHolder.getUserId(), code);
+//        if(s != null) {
+//            result.setData(s.getIsValid());
+//        } else {
+//            result.setData(0);
+//        }
+//        return result;
+//    }
 
 }

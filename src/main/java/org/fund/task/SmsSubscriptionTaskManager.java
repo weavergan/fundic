@@ -2,7 +2,6 @@ package org.fund.task;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.fund.common.ConstantEnum;
@@ -14,11 +13,8 @@ import org.fund.stat.entity.Materiel;
 import org.fund.stat.entity.Record;
 import org.fund.stat.entity.SMSScription;
 import org.fund.stat.service.FundService;
-import org.fund.stat.service.impl.FundServiceImpl;
 import org.fund.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
@@ -103,7 +99,7 @@ public class SmsSubscriptionTaskManager {
         }
         materiel.setEndDate(DateUtil.dateToString(today));//结束日期设置为今天
         try {
-            List<Record> data = fundService.getListByCode(materiel, defaultGuzhiFrom, auth);
+            List<Record> data = fundService.getListByCode(materiel, defaultGuzhiFrom, auth, false, null);
             if(!CollectionUtils.isEmpty(data)) {
                 Record lastRow = data.get(data.size() - 1);
                 if(lastRow.getDate().equals(DateUtil.dateToString(today))) {

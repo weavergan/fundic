@@ -88,7 +88,7 @@ function calList() {
 		return;
 	}
 	theoreticList();
-	// actualList();
+	actualList();
 }
 function theoreticList() {
 	var url = '/fund/getCodeList.do';
@@ -155,20 +155,20 @@ function theoreticList() {
 	});
 }
 function actualList() {
-	var description;
-	var dataJson = $('#actualCodeList').datagrid('getData');
-	for(var i in dataJson) {
-		var property = dataJson[i];
-		description += i + " = " + property +"\n";
-	}
-    alert(description);
-
-	return;
+	// var description;
+	// var dataJson = $('#actualCodeList').datagrid('getData');
+	// for(var i in dataJson) {
+	// 	var property = dataJson[i];
+	// 	description += i + " = " + property +"\n";
+	// }
+	// alert(description);
+	//
+	// return;
 
 	var url = '/fund/getActualCodeList.do';
 	var isStopProfit = 0;
 	var isAutoSell = 0;
-	var isZS = 0;
+	// var isZS = 0;
 	var isFenhongInvest = 0;
 	var isIncrease = 0;
 	var isSetMinRate = 0;
@@ -178,9 +178,9 @@ function actualList() {
 	if (document.getElementById("isAutoSell").checked){
 		isAutoSell = 1;
 	}
-	if (document.getElementById("isZS").checked){
-		isZS = 1;
-	}
+	// if (document.getElementById("isZS").checked){
+	// 	isZS = 1;
+	// }
 	if (document.getElementById("isFenhongInvest").checked){
 		isFenhongInvest = 1;
 	}
@@ -200,7 +200,8 @@ function actualList() {
 			baseMultiple:$("#baseMultiple").length > 0 ? $("#baseMultiple").textbox('getValue') : 1.2,
 			startInvest:Number($("#startInvest").textbox('getValue')) * 100,
 			moreMultiple:$("#moreMultiple").length > 0 ? $("#moreMultiple").textbox('getValue') : 0.1,
-			firstInvest:$("#firstInvest").textbox('getValue'),
+			// firstInvest:$("#firstInvest").textbox('getValue'),
+			totalInvest:$("#totalInvest").textbox('getValue'),
 			isStopProfit:isStopProfit,
 			stopProfitPot:Number($("#stopProfitPot").textbox('getValue')) * 100,
 			isAutoSell:isAutoSell,
@@ -209,9 +210,10 @@ function actualList() {
 			minHoldCount:$("#minHoldCount").textbox('getValue'),
 			startDate:$('#startDate').datebox('getValue'),
 			endDate:$("#endDate").datebox('getValue'),
-			isZS:isZS,
+			//isZS:isZS,
 			isFenhongInvest:isFenhongInvest,
 			isIncrease:isIncrease,
+			riskRate:$("#riskRate").length > 0 ?$("#riskRate").textbox('getValue') : 40,
 			isSetMinRate:isSetMinRate,
 			guzhiFrom:$("#guzhiFrom").combobox('getValue')
 		},
@@ -390,7 +392,7 @@ function setActualCodeList(data) {
 		ac_sumIncList.push(data[i].sumInc);
 		ac_allProfitPotList.push(data[i].allProfitPot);
 	}
-	$('#codeList').datagrid('loadData', json);
+	$('#actualCodeList').datagrid('loadData', json);
 
 }
 
@@ -551,9 +553,9 @@ function changeCode() {
 	var value = $("#fundcode").combobox('getValue');
 	if(value.length == 6) {
 		getOneCode(value);
-		if(userAuth > 1) {
-			getSmsSubscription(value);
-		}
+		// if(userAuth > 1) {
+		// 	getSmsSubscription(value);
+		// }
 	}
 }
 

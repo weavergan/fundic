@@ -41,6 +41,17 @@
 		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
 	</resultMap>
 
+	<resultMap type="org.fund.stat.entity.Operation" id="OperationMap">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<result property="userId" column="user_id" jdbcType="INTEGER" />
+		<result property="code" column="code" jdbcType="VARCHAR" />
+		<result property="date" column="date" jdbcType="DATE" />
+		<result property="purchasePrice" column="purchase_price" jdbcType="INTEGER" />
+		<result property="sellCount" column="sell_count" jdbcType="FLOAT" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
 	<select id="getMaterielsById" parameterType="String" resultMap="MaterielMap">
     	SELECT * FROM t_materiel 
     	WHERE user_id = #{userId}
@@ -92,4 +103,12 @@
 		join t_user u on s.user_id = u.id
 		WHERE s.isvalid = 1
 	</select>
+
+	<select id="getOperationsByUserIdAndCode" resultMap="OperationMap">
+		select * from `t_operation` o
+		WHERE user_id = #{userId} AND code = #{code}
+	</select>
+
+
+
 </mapper>

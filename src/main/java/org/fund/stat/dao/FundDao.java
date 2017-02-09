@@ -1,10 +1,11 @@
 package org.fund.stat.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.fund.stat.entity.Materiel;
+import org.fund.stat.entity.Operation;
 import org.fund.stat.entity.SMSScription;
+
+import java.util.List;
 
 public interface FundDao {
 
@@ -33,4 +34,7 @@ public interface FundDao {
     public SMSScription getSmsSubscription(@Param("userId") Long userId, @Param("code") String code);
 
     public List<SMSScription> getAllSmsSubscription();
+
+    //获取用户操作
+    List<Operation> getOperationsByUserIdAndCode(@Param("userId") Long userId, @Param("code") String code);
 }
