@@ -36,5 +36,13 @@ public interface FundDao {
     public List<SMSScription> getAllSmsSubscription();
 
     //获取用户操作
-    List<Operation> getOperationsByUserIdAndCode(@Param("userId") Long userId, @Param("code") String code);
+    public List<Operation> getOperationsByUserIdAndCode(@Param("userId") Integer userId, @Param("code") String code);
+
+    public void setOperation(Operation setOperation);
+
+    public Operation getOperationsByUserIdAndCodeAndDate(@Param("userId") Integer userId, @Param("code") String code, @Param("date") String date);
+
+    public void updateOperation(Operation operation);
+
+    public void addOperation(Operation operation);
 }

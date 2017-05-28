@@ -32,6 +32,10 @@ function columnStyler(value, row, index) {
 	}
 }
 
+function editableColumnStyler(index, row){
+	return 'background-color:#E0DBDB;font-weight:bold;';
+}
+
 //获取用户基金
 function getCodes() {
 	var url = '/fund/getCodes.do';
@@ -87,10 +91,13 @@ function calList() {
 	if(!checkInformation()) {
 		return;
 	}
+	//clearCodeList();
 	theoreticList();
 	actualList();
 }
 function theoreticList() {
+	$('#codeList').datagrid('loadData', { total: 0, rows: [] });
+	$('#loading').show()
 	var url = '/fund/getCodeList.do';
 	var isStopProfit = 0;
 	var isAutoSell = 0;
@@ -155,15 +162,8 @@ function theoreticList() {
 	});
 }
 function actualList() {
-	// var description;
-	// var dataJson = $('#actualCodeList').datagrid('getData');
-	// for(var i in dataJson) {
-	// 	var property = dataJson[i];
-	// 	description += i + " = " + property +"\n";
-	// }
-	// alert(description);
-	//
-	// return;
+	$('#actualCodeList').datagrid('loadData', { total: 0, rows: [] });
+	$('#loadingActual').show()
 
 	var url = '/fund/getActualCodeList.do';
 	var isStopProfit = 0;
@@ -361,6 +361,13 @@ function checkInformation() {
 	return true;
 }
 
+//清空list
+function clearCodeList() {
+	$('#codeList').datagrid('loadData', { total: 0, rows: [] });
+	$('#actualCodeList').datagrid('loadData', { total: 0, rows: [] });
+
+}
+
 //填充list
 function setCodeList(data) {
 	dateList = [];
@@ -379,6 +386,7 @@ function setCodeList(data) {
 	$('#main_layout').layout("resize",{
 		height:Math.max((data.length * 25 + 240), minHeight) + "px"
 	});
+	$('#loading').hide()
 }
 
 function setActualCodeList(data) {
@@ -393,7 +401,7 @@ function setActualCodeList(data) {
 		ac_allProfitPotList.push(data[i].allProfitPot);
 	}
 	$('#actualCodeList').datagrid('loadData', json);
-
+	$('#loadingActual').hide()
 }
 
 function fail(data){

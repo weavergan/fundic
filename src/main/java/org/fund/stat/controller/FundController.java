@@ -5,6 +5,7 @@ import org.fund.common.Result;
 import org.fund.exception.NoDataException;
 import org.fund.stat.FundValidator;
 import org.fund.stat.entity.Materiel;
+import org.fund.stat.entity.Operation;
 import org.fund.stat.entity.Record;
 import org.fund.stat.service.FundService;
 import org.fund.util.UserHolder;
@@ -155,5 +156,15 @@ public class FundController {
 //        }
 //        return result;
 //    }
+//
+    @RequestMapping(value = "/mem/setOperation.do")
+    @ResponseBody
+    public Result setOperation(Operation operation) {
+        Result result = new Result();
+        operation.setUserId((int)UserHolder.getUserId());
+        System.out.println("#######" + operation);
+        fundService.setOperation(operation);
+        return result;
+    }
 
 }

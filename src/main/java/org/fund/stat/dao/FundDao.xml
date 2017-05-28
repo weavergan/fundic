@@ -109,6 +109,19 @@
 		WHERE user_id = #{userId} AND code = #{code}
 	</select>
 
+	<select id="getOperationsByUserIdAndCodeAndDate" resultMap="OperationMap">
+		select * from `t_operation` o
+		WHERE user_id = #{userId} AND code = #{code} AND `date` = #{date}
+	</select>
 
+	<insert id="addOperation" parameterType="org.fund.stat.entity.Materiel">
+		INSERT INTO `t_operation`(user_id, `code`, `date`, purchase_price, sell_count, create_time,update_time)
+		VALUES(#{userId}, #{code}, #{date}, #{purchasePrice}, #{sellCount}, now(), now())
+	</insert>
+
+	<update id="updateOperation">
+		UPDATE `t_operation` SET purchase_price=#{purchasePrice},sell_count=#{sellCount},update_time=now()
+		WHERE user_id=#{userId} AND `code`=#{code} AND `date`=#{date}
+	</update>
 
 </mapper>

@@ -1,18 +1,5 @@
 package org.fund.user.controller;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,12 +12,25 @@ import org.fund.user.UserValidator;
 import org.fund.user.entity.User;
 import org.fund.user.service.UserService;
 import org.fund.util.CheckNumUtil;
+import org.fund.util.DateUtil;
 import org.fund.util.MD5Util;
 import org.fund.util.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/user")
@@ -122,7 +122,14 @@ public class UserController {
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(MD5Util.MD5(password));
-        newUser.setAuth(AuthType.NORMAL_USER.getId());
+        newUser.setAuth(AuthType.VIP_USER.getId());
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.MONTH, 1);
+        date = c.getTime();
+        int expiredDate = Integer.parseInt(DateUtil.dateFormat2.format(date));
+        newUser.setExpiredDate(expiredDate);
         userService.createUser(newUser);
         newUser = userService.getUserByName(username);
 

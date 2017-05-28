@@ -19,6 +19,7 @@
 <script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="../js/main.js"></script>
 <script type="text/javascript" src="../js/util.js"></script>
+<script type="text/javascript" src="../js/editActualChart.js"></script>
 <script type="text/javascript" src="../js/echarts.min.js"></script>
 <title>风险大师</title>
 </head>
@@ -199,6 +200,7 @@
 					<div id="chart" class="easyui-dialog" title="涨幅折线图" style="width: 600px;height:400px;" data-options="iconCls:'pag-list',modal:true,collapsible:false,minimizable:false,maximizable:false,resizable:false,closed:true"></div>
 					<a id="showChart" href="javascript:void(0)" class="easyui-linkbutton" style="width:80px" onclick="showChart()">折线图</a>
 					<div style="height:10px"></div>
+					<div id="loading" hidden="true"><span style="font-size:28px;font-weight:bold;padding-left:30px;">正在加载中，请稍后。。</span></div>
 					<table id="codeList" class="easyui-datagrid" url="" iconCls="icon-save">
 						<thead>
 							<tr>
@@ -245,8 +247,10 @@
 				<div title="实际操作" style="padding: 10px">
 					<div id="actualChart" class="easyui-dialog" title="涨幅折线图" style="width: 600px;height:400px;" data-options="iconCls:'pag-list',modal:true,collapsible:false,minimizable:false,maximizable:false,resizable:false,closed:true"></div>
 					<a id="showActualChart" href="javascript:void(0)" class="easyui-linkbutton" style="width:80px" onclick="showActualChart()">折线图</a>
+					<a id="refreshActualList" href="javascript:void(0)" class="easyui-linkbutton" style="width:80px" onclick="actualList()">刷新列表</a>
 					<div style="height:10px"></div>
-					<table id="actualCodeList" class="easyui-datagrid" url="" iconCls="icon-save">
+					<div id="loadingActual" hidden="true"><span style="font-size:28px;font-weight:bold;padding-left:30px;">正在加载中，请稍后。。</span></div>
+					<table id="actualCodeList" class="easyui-datagrid" url="" iconCls="icon-save" data-options="onClickCell:onClickCell,onAfterEdit:onAfterEdit">
 						<thead>
 							<tr>
 								<!-- <th field="no" width="3%" align="center">ID</th> -->
@@ -254,7 +258,7 @@
 								<th field="value" align="center">净值</th>
 								<th field="increase" align="center" styler="columnStyler">涨幅(%)</th>
 								<th field="sumInc" align="center">累涨(%)</th>
-								<th field="purchasePrice" align="center">申购金额</th>
+								<th field="purchasePrice" align="center" editor="text" styler="editableColumnStyler">申购金额</th>
 								<%
 								    if(user.getAuth() != 1) {
 								%> 
@@ -262,7 +266,7 @@
 								<%
 								    }
 								%>
-								<th field="sellCount" align="center">赎回份额</th>
+								<th field="sellCount" align="center" editor="text" styler="editableColumnStyler">赎回份额</th>
 								<%
 								    if(user.getAuth() != 1) {
 								%> 
@@ -291,17 +295,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div data-options="region:'east',split:true" title="历史操作" style="width:200px;">
-			<table id="operateList" class="easyui-datagrid" style="width:98%" url="" iconCls="icon-save">
-				<thead>
-					<tr>
-						<th field="date" width="50%" align="center">日期</th>
-						<th field="op" width="20%" align="center">操作</th>
-						<th field="number" width="30%" align="center">金额（元）/份额（份）</th>
-					</tr>
-				</thead>
-			</table>
-		</div> -->
 	</div>
 </body>
 </html>

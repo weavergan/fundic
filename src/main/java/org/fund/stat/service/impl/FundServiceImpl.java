@@ -90,7 +90,7 @@ public class FundServiceImpl implements FundService {
             CaculateUtils.calculate2(recordList, materiel);
         } else {
             //实际操作
-            List<Operation> operations = fundDao.getOperationsByUserIdAndCode(userId, materiel.getCode());
+            List<Operation> operations = fundDao.getOperationsByUserIdAndCode(userId.intValue(), materiel.getCode());
             CaculateUtils.calculateForActual(recordList, materiel, operations);
         }
         // 保留两位小数
@@ -320,5 +320,15 @@ public class FundServiceImpl implements FundService {
     @Override
     public SMSScription getSmsSubscription(Long userId, String code) {
         return fundDao.getSmsSubscription(userId, code);
+    }
+
+    @Override
+    public void setOperation(Operation operation) {
+        Operation m = fundDao.getOperationsByUserIdAndCodeAndDate(operation.getUserId(), operation.getCode(), operation.getDate());
+        if (m != null) {
+            fundDao.updateOperation(operation);
+        } else {
+            fundDao.addOperation(operation);
+        }
     }
 }

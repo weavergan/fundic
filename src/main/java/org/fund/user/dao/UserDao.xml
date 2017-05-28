@@ -21,7 +21,7 @@
     
     <insert id="createUser" parameterType="org.fund.user.entity.User" useGeneratedKeys="true" keyProperty="id">
     	INSERT INTO t_user (username, password, create_time, update_time, auth, expired_date) 
-    	VALUES(#{username}, #{password}, now(), now(), #{auth}, 0)
+    	VALUES(#{username}, #{password}, now(), now(), #{auth}, #{expiredDate})
     </insert>
     
     <select id="getAllUsers" resultMap="UserMap">

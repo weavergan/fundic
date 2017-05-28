@@ -84,4 +84,18 @@ public class Operation {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Operation{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", code='" + code + '\'' +
+                ", date='" + date + '\'' +
+                ", purchasePrice=" + purchasePrice +
+                ", sellCount=" + sellCount +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

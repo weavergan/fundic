@@ -2,6 +2,7 @@ package org.fund.stat.service;
 
 import org.fund.exception.NoDataException;
 import org.fund.stat.entity.Materiel;
+import org.fund.stat.entity.Operation;
 import org.fund.stat.entity.Record;
 import org.fund.stat.entity.SMSScription;
 
@@ -32,4 +33,6 @@ public interface FundService {
     public void cancelSmsSub(Long userId, String code);
 
     public SMSScription getSmsSubscription(Long userId, String code);
+
+    public void setOperation(Operation operation);
 }
