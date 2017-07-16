@@ -1,11 +1,13 @@
 package org.fund.user.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.fund.user.entity.User;
 
+import java.util.List;
+
 public interface UserDao {
+
+    User getUserById(@Param("userId") Long userId);
 
     public User getByUserName(@Param("username")String username);
 

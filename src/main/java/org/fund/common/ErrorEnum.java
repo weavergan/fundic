@@ -18,6 +18,8 @@ public enum ErrorEnum {
     // 4* 权限错误
     AUTH_ERROR(401, "用户权限异常，请重新登录！");
 
+    // 5* 自动交易错误
+
     private int code;
     private String errorMsg;
 

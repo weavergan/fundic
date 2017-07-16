@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.fund.autoDeal.dao.AutoDealDao">
+	
+	<resultMap type="org.fund.autoDeal.entity.AutoDeal" id="AutoDealMap">
+		<id property="id" column="id" jdbcType="INTEGER" />
+		<id property="userId" column="user_id" jdbcType="INTEGER" />
+		<result property="LoginCS" column="username" jdbcType="VARCHAR" />
+		<result property="code" column="code" jdbcType="VARCHAR" />
+		<result property="type" column="type" jdbcType="VARCHAR" />
+		<result property="dealPassword" column="deal_password" jdbcType="VARCHAR" />
+		<result property="isValid" column="is_valid" jdbcType="INTEGER" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+    
+	<select id="getAutoDealInfoByUserId" resultMap="AutoDealMap">
+    	SELECT * FROM t_autodeal
+    	WHERE userId = #{userId}
+    </select>
+	<select id="getAllAutoDealInfo" resultMap="AutoDealMap">
+    	SELECT * FROM t_autodeal
+    </select>
+    
+
+</mapper>
