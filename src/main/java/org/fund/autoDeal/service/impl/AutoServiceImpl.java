@@ -45,6 +45,7 @@ public class AutoServiceImpl implements AutoService {
 
         HttpResponseEntity loginRes = HttpUtils.sendPOST(loginUrl, loginJsonBody, null);
         String baseUrl = getBaseUrl(loginRes.getResContentStr());
+        String requestUrl = "/fundtradepage/default2?fc=" + fundCode + "&amount=" + amount;
         if(loginRes.getResStatusCode() != 200) {
             log.error("login error!");
             result.addError("login error!");
@@ -53,8 +54,14 @@ public class AutoServiceImpl implements AutoService {
         log.info("login seccess! userId:" + userId);
         fetchCookie(cookies, loginRes.getResCookies());
 
-        String firstStepUrl = baseUrl + "/fundtradepage/default2?fc=" + fundCode + "&amount=" + amount;
+        String firstStepUrl = baseUrl + requestUrl;
         HttpResponseEntity firstStepRes = HttpUtils.sendGET(firstStepUrl, new ArrayList<>(cookies.values()));
+        if(firstStepRes.getResStatusCode() == 302) {
+            String firstStepRedirect = firstStepRes.getResContentStr();
+            requestUrl = getRedirect(firstStepRedirect);
+            firstStepUrl = baseUrl + requestUrl;
+            firstStepRes = HttpUtils.sendGET(firstStepUrl, new ArrayList<>(cookies.values()));
+        }
         if(firstStepRes.getResStatusCode() != 200) {
             log.error("get first step error!");
             result.addError("get first step error!");
@@ -67,13 +74,16 @@ public class AutoServiceImpl implements AutoService {
         if(type.equals("0")) {//活期宝
             firstStepParams.remove("ctl00$body$rblBanks");
             //《客户扣款授权书》
-            firstStepParams.put("ctl00$body$agreeCheckbox", new BasicNameValuePair("ctl00$body$agreeCheckbox", "on"));
+            firstStepParams.put("ctl00$body$agreeCheckbox", new BasicNameValuePair("ctl00$body$agreeCheckbox", "0"));
         } else {
             firstStepParams.remove("ctl00$body$rblUsableBanks");
-            firstStepParams.put("ctl00$body$hfPayWay", new BasicNameValuePair("ctl00$body$hfPayWay", "on"));
+            firstStepParams.remove("ctl00$body$agreeCheckbox");
+            firstStepParams.put("ctl00$body$hfPayWay", new BasicNameValuePair("ctl00$body$hfPayWay", "0"));
         }
         firstStepParams.put("ctl00$body$hfBusinType", new BasicNameValuePair("ctl00$body$hfBusinType", firstStepParams.get("ctl00$body$hfPayWay").getValue()));
-        String secondStepUrl = baseUrl + "/fundtradepage/default2?fc=" + fundCode + "&amount=" + amount;
+        firstStepParams.put("__EVENTTARGET", new BasicNameValuePair("__EVENTTARGET", "ctl00$body$lkbOK_diatxt"));
+        firstStepParams.remove("ctl00$body$btnSp1");
+        String secondStepUrl = baseUrl + requestUrl;
         HttpResponseEntity secondStepRes = HttpUtils.sendPOST(secondStepUrl, new ArrayList<>(firstStepParams.values()), new ArrayList<>(cookies.values()));
         if(secondStepRes.getResStatusCode() != 200) {
             log.error("get second step error!");
@@ -90,32 +100,32 @@ public class AutoServiceImpl implements AutoService {
         Map<String, NameValuePair> secondStepParams = getFormParam(secondStepHtml);
         secondStepParams.put("ctl00$body$agreeCheckbox", new BasicNameValuePair("ctl00$body$agreeCheckbox", "on"));
         //风险提示弹窗
-        if(secondStepParams.containsKey("ctl00$body$Hfdiatxt") && !StringUtils.isEmpty(secondStepParams.get("ctl00$body$Hfdiatxt").getValue())) {
-            secondStepParams.put("__EVENTTARGET", new BasicNameValuePair("__EVENTTARGET", "ctl00$body$lkbOK_diatxt"));
-            secondStepParams.put("__EVENTARGUMENT", new BasicNameValuePair("__EVENTARGUMENT", ""));
-            secondStepParams.remove("ctl00$body$btnSp1");
-
-            secondStepRes = HttpUtils.sendPOST(secondStepUrl, new ArrayList<>(secondStepParams.values()), new ArrayList<>(cookies.values()));
-            if(secondStepRes.getResStatusCode() != 200) {
-                log.error("get second step error!");
-                result.addError("get second step error!");
-                return result;
-            }
-            secondStepHtml = secondStepRes.getResContentStr();
-            secondErrorInfo = getOrderFailInfo(secondStepHtml);
-            if(secondErrorInfo != null) {
-                log.error("second step fail: " + secondErrorInfo);
-                result.addError(secondErrorInfo);
-                return result;
-            }
-        }
+//        if(secondStepParams.containsKey("ctl00$body$Hfdiatxt") && !StringUtils.isEmpty(secondStepParams.get("ctl00$body$Hfdiatxt").getValue())) {
+//            secondStepParams.put("__EVENTTARGET", new BasicNameValuePair("__EVENTTARGET", "ctl00$body$lkbOK_diatxt"));
+//            secondStepParams.put("__EVENTARGUMENT", new BasicNameValuePair("__EVENTARGUMENT", ""));
+//            secondStepParams.remove("ctl00$body$btnSp1");
+//
+//            secondStepRes = HttpUtils.sendPOST(secondStepUrl, new ArrayList<>(secondStepParams.values()), new ArrayList<>(cookies.values()));
+//            if(secondStepRes.getResStatusCode() != 200) {
+//                log.error("get second step error!");
+//                result.addError("get second step error!");
+//                return result;
+//            }
+//            secondStepHtml = secondStepRes.getResContentStr();
+//            secondErrorInfo = getOrderFailInfo(secondStepHtml);
+//            if(secondErrorInfo != null) {
+//                log.error("second step fail: " + secondErrorInfo);
+//                result.addError(secondErrorInfo);
+//                return result;
+//            }
+//        }
         log.info("secondStep seccess! userId:" + userId);
 
         secondStepParams = getFormParam(secondStepHtml);
         secondStepParams.put("ctl00$body$txtPaypwd", new BasicNameValuePair("ctl00$body$txtPaypwd", dealPassword));
 
 
-        String thirdStepUrl = baseUrl + "/fundtradepage/default2?fc=" + fundCode + "&amount=" + amount;
+        String thirdStepUrl = baseUrl + requestUrl;
         HttpResponseEntity thirdStepRes = HttpUtils.sendPOST(thirdStepUrl, new ArrayList<>(secondStepParams.values()), new ArrayList<>(cookies.values()));
         //正常通过流程应该返回302
         if(thirdStepRes.getResStatusCode() == 200) {

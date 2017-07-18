@@ -74,6 +74,8 @@ public class AutoDealTaskManager {
             return;
         }
         Materiel materiel = fundService.getMaterielByCode(user.getUserId().longValue(), autoDeal.getCode());
+        String today = DateUtil.dateToString(new Date());
+        materiel.setEndDate(today);
         try {
             List<Record> data = fundService.getListByCode(materiel, 0, user.getAuth(), false, user.getUserId().longValue());
             if(CollectionUtils.isEmpty(data)) {
@@ -81,9 +83,8 @@ public class AutoDealTaskManager {
                 return;
             }
             Record todayRecord = data.get(data.size() - 1);
-            Date today = new Date();
-            if (!DateUtil.dateToString(today).equals(todayRecord.getDate())) {
-                logger.info("today date is not exist , userId:" + user.getUserId() + "fundCode:" + autoDeal.getCode());
+            if (!today.equals(todayRecord.getDate())) {
+                logger.info("today date is not exist, userId:" + user.getUserId() + "fundCode:" + autoDeal.getCode());
                 return;
             }
             if(todayRecord.getPurchasePrice() <= 0F) {

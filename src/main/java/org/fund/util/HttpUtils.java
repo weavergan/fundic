@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.CookieStore;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -104,6 +105,7 @@ public class HttpUtils {
         //最后获取申购结果的时候，url中会有'^'字符，需要转义
         String formatUrl = url.replaceAll("\\^", "%5E");
         HttpGet httpGet = new HttpGet(formatUrl);
+        httpGet.setConfig(RequestConfig.custom().setRedirectsEnabled(false).build());
         String cookieStr = cookieListToString(cookies);
         if(cookieStr != null) {
             httpGet.setHeader("Cookie", cookieStr);
