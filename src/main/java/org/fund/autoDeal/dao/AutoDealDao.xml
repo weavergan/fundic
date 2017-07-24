@@ -7,11 +7,11 @@
 	<resultMap type="org.fund.autoDeal.entity.AutoDeal" id="AutoDealMap">
 		<id property="id" column="id" jdbcType="INTEGER" />
 		<id property="userId" column="user_id" jdbcType="INTEGER" />
-		<result property="LoginCS" column="username" jdbcType="VARCHAR" />
+		<result property="LoginCS" column="login_cs" jdbcType="VARCHAR" />
 		<result property="code" column="code" jdbcType="VARCHAR" />
 		<result property="type" column="type" jdbcType="VARCHAR" />
 		<result property="dealPassword" column="deal_password" jdbcType="VARCHAR" />
-		<result property="isValid" column="is_valid" jdbcType="INTEGER" />
+		<result property="isValid" column="isvalid" jdbcType="INTEGER" />
 		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
 		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
 	</resultMap>

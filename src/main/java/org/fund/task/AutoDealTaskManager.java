@@ -68,12 +68,17 @@ public class AutoDealTaskManager {
     }
 
     private void doAutoDeal(AutoDeal autoDeal) {
+        logger.info("start do auto deal, userId:" + autoDeal.getUserId() + ", code:" + autoDeal.getCode());
         User user = userDao.getUserById(autoDeal.getUserId().longValue());
         if(user.getAuth() != ConstantEnum.AuthType.SVIP.getId()) {
             logger.error("cannot auto deal, user:" + user.getUserId() + " is not SVIP!");
             return;
         }
         Materiel materiel = fundService.getMaterielByCode(user.getUserId().longValue(), autoDeal.getCode());
+        if(materiel == null) {
+            logger.error("materiel not found for userId:" +  + autoDeal.getUserId() + ", code:" + autoDeal.getCode());
+            return;
+        }
         String today = DateUtil.dateToString(new Date());
         materiel.setEndDate(today);
         try {

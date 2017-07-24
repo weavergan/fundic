@@ -44,14 +44,14 @@ public class AutoServiceImpl implements AutoService {
 //        String amount = "100";
 
         HttpResponseEntity loginRes = HttpUtils.sendPOST(loginUrl, loginJsonBody, null);
-        String baseUrl = getBaseUrl(loginRes.getResContentStr());
-        String requestUrl = "/fundtradepage/default2?fc=" + fundCode + "&amount=" + amount;
         if(loginRes.getResStatusCode() != 200) {
             log.error("login error!");
             result.addError("login error!");
             return result;
         }
         log.info("login seccess! userId:" + userId);
+        String baseUrl = getBaseUrl(loginRes.getResContentStr());
+        String requestUrl = "/fundtradepage/default2?fc=" + fundCode + "&amount=" + amount;
         fetchCookie(cookies, loginRes.getResCookies());
 
         String firstStepUrl = baseUrl + requestUrl;
